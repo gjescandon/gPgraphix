@@ -29,7 +29,7 @@ void draw() {
     //image(csi.fall_bottom_layers(), 0.02 * width, 0.02 * height, width * 0.96, height * 0.96);
     //image(csi.fall_splash(), 0.02 * width, 0.02 * height, width * 0.96, height * 0.96);
     //image(csi.fall_gradual_bottom(), 0.02 * width, 0.02 * height, width * 0.96, height * 0.96);
-    image(csi.fall_bottom_layers(), 0.02 * width, 0.02 * height, width * 0.96, height * 0.96);
+    image(csi.fall_splash(), 0.02 * width, 0.02 * height, width * 0.96, height * 0.96);
   } 
   //saveFrame();
 }
