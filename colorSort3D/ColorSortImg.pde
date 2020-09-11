@@ -1,20 +1,20 @@
-class ColorSortImg {
+ class ColorSortImg {
  PImage img0;
  PImage imgFalls;
  PImage imgX;
  
  float theta = 0.0;
- float thetaInc = 0.01;
+ float thetaInc = 0.005;
 
  float perc = 0.0;
  float percInc = 0.005;
  int[] fally = new int[width];
  int height0, height0B, height0B_layers;
  
- float brightnessFactor;
+ float brightnessFactor,brightnessFactor_Splash;
  float bfInc, bfInc_layers;
  
- NoizeBob nbob;
+ NoizeBob nbob,splashBob;
  
  ColorSortImg(PImage img) {
    img0 = img;
@@ -29,117 +29,58 @@ class ColorSortImg {
    height0B_layers = floor(0.5 * height);
    
    brightnessFactor = 200.0;
-   bfInc = 0.08;
-   bfInc_layers = 0.008;
+   brightnessFactor_Splash = 150.0;
+   bfInc = 0.2;
+   bfInc_layers = 0.5;
    
+   
+    float factor = 60.0;
+    float falloff = 0.6;
+    float inc = 1.0;   
+   splashBob = new NoizeBob(factor, inc, falloff);   
+   factor = 1.0;
+   falloff = 0.2;
+   inc = 1.0;   
    nbob = new NoizeBob();
-   
    theta = 0.;
-   thetaInc = 0.05;
+   thetaInc = 0.005;
+   
  }
  
  void draw3d() {
+   //PImage img = fall_splash();
+   //PImage img = fall_gradual_bottom();
    PImage img = fall_splash();
    img.loadPixels();
+   int fcOff = frameCount - 250;
+   float tfactor = (1 - exp(-0.005* fcOff));
+   float zfactor =  4. * (1 - sin(theta)) ;
+   //zfactor = map(zfactor,0.,1.,0.02,1.);
+   float nbobTimer = 0.;
    for (int y = 0; y < height; y++ ) {
      for (int x = 0; x < width; x++ ) {
+       nbobTimer = nbob.getBob() *tfactor;
        int i = y*width + x;
        color pc = img.pixels[i];
-       stroke(pc);
-       int zed = (0 - floor(brightness(pc)))/10;
+       noStroke();
+       fill(pc);
+       float zed = 0.;
+       // up top: bright colors are forward
+       // down below: dark colors are forward
+       float zoffset = 10. * brightness(pc) *pow(0.2*((y - 0.5*height)/ height),5.);
+       zed = zfactor*(0+zoffset)* pow(0.4*((y - 0.5*height)/ height),5.) * nbobTimer;
        pushMatrix();
+         nbobTimer = nbob.getBob() *tfactor;
          translate(x, y, zed);
-         box(1);
+         box(1 + nbobTimer);
        popMatrix();
      }
    }
- }
- 
- PImage fall_perpetual() {
-   imgFalls.loadPixels();
-   imgX.loadPixels();
-   
-   EmptyTemplate et = new EmptyTemplate();   
-   PImage imgt = et.getEmpty();
-    imgt.loadPixels();
-    for (int i = 0; i < imgt.pixels.length; i++) {
-      imgt.pixels[i] = imgFalls.pixels[i];
-    } 
-   
-   
-   
-   for (int y = 0; y < height0 - 1; y++) {
-       for (int x = 0; x < width; x++){
-         
-       color ct;
-       if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
-         ct = imgt.pixels[x + width*(y+1)];
-         imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
-         imgt.pixels[x + width*(y)] = ct;
-       }
-
-       if (brightness(imgFalls.pixels[x + width*y]) > brightness(imgX.pixels[x + width*y])) {
-         if (y-1 >= 0) {
-           ct = imgt.pixels[x + width*(y-1)];
-           imgt.pixels[x + width*(y-1)] = imgt.pixels[x + width*(y)];
-           imgt.pixels[x + width*(y)] = ct;
-         }
-       }
-     }
+   println("tf " + tfactor + "  :: zf " + zfactor + " :: theta " + theta);
+   theta += thetaInc;
+   if (theta > TWO_PI) {
+      theta = 0.;
    }
-   
-   imgFalls.updatePixels();
-    for (int i = 0; i < imgt.pixels.length; i++) {
-      imgFalls.pixels[i] = imgt.pixels[i];
-    } 
-   
-   
-   if (height0 < height) height0++;
-   return imgFalls;
-   
- }
-  PImage fall() {
-   imgFalls.loadPixels();
-   imgX.loadPixels();
-   
-   EmptyTemplate et = new EmptyTemplate();   
-   PImage imgt = et.getEmpty();
-    imgt.loadPixels();
-    for (int i = 0; i < imgt.pixels.length; i++) {
-      imgt.pixels[i] = imgFalls.pixels[i];
-    } 
-   
-   
-   
-   for (int y = 0; y < height0 - 1; y++) {
-       for (int x = 0; x < width; x++){
-         
-       color ct;
-       if (brightness(imgt.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
-         ct = imgt.pixels[x + width*(y+1)];
-         imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
-         imgt.pixels[x + width*(y)] = ct;
-       }
-
-       if (brightness(imgt.pixels[x + width*y]) > brightness(imgX.pixels[x + width*y])) {
-         if (y-1 >= 0) {
-           ct = imgt.pixels[x + width*(y-1)];
-           imgt.pixels[x + width*(y-1)] = imgt.pixels[x + width*(y)];
-           imgt.pixels[x + width*(y)] = ct;
-         }
-       }
-     }
-   }
-   
-    for (int i = 0; i < imgt.pixels.length; i++) {
-      imgFalls.pixels[i] = imgt.pixels[i];
-    } 
-   
-   imgFalls.updatePixels();
-   
-   if (height0 < height) height0++;
-   return imgFalls;
-   
  }
  
  PImage fall_bottom_chop() {
@@ -254,43 +195,23 @@ class ColorSortImg {
       imgt.pixels[i] = imgFalls.pixels[i];
     } 
    
-    if (frameCount < 2000) {
-       for (int y = height -1; y > 0; y--) {
-           for (int x = 0; x < width; x++){
-             
-           color ct;
-    /*
-    if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
-             if (y <= height - 2) {
-               ct = imgt.pixels[x + width*(y+1)];
-               imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
-               imgt.pixels[x + width*(y)] = ct;
-             }
-           }
-    */
-           if (brightness(imgFalls.pixels[x + width*y]) > brightness(imgX.pixels[x + width*y])) {
-             if (y >= 1) {
-               ct = imgt.pixels[x + width*(y-1)];
-               imgt.pixels[x + width*(y-1)] = imgt.pixels[x + width*(y)];
-               imgt.pixels[x + width*(y)] = ct;
-             }         
-           }
-         }
-       }
-    }
    
    for (int y = 0; y < height; y++) {
        for (int x = 0; x < width; x++){
          
        color ct;
 
-      if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
-         if (y <= height - 2) {
-           ct = imgt.pixels[x + width*(y+1)];
-           imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
-           imgt.pixels[x + width*(y)] = ct;
+      if (brightness(imgFalls.pixels[x + width*y]) < brightnessFactor_Splash - splashBob.getBob()) {
+        if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
+           if (y <= height - 2) {
+             ct = imgt.pixels[x + width*(y+1)];
+             if (random(1.) > 0.6) {
+               imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
+               imgt.pixels[x + width*(y)] = ct;
+             }
+           }
          }
-       }
+      }
 
        }
      }
@@ -301,6 +222,9 @@ class ColorSortImg {
     } 
    imgFalls.updatePixels();
    
+   if (brightnessFactor_Splash < 300) {
+     brightnessFactor_Splash += bfInc;
+   }
    
    if (height0B > 0) {
      height0B--;
@@ -308,6 +232,7 @@ class ColorSortImg {
    return imgFalls;
    
  }
+ 
  
  PImage fall_gradual_bottom() {
    imgFalls.loadPixels();
