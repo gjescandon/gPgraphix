@@ -11,10 +11,10 @@ class ColorSortImg {
  int[] fally = new int[width];
  int height0, height0B, height0B_layers;
  
- float brightnessFactor;
+ float brightnessFactor,brightnessFactor_Splash;
  float bfInc, bfInc_layers;
  
- NoizeBob nbob;
+ NoizeBob nbob, splashBob;
  
  ColorSortImg(PImage img) {
    img0 = img;
@@ -29,10 +29,15 @@ class ColorSortImg {
    height0B_layers = floor(0.5 * height);
    
    brightnessFactor = 200.0;
-   bfInc = 0.08;
-   bfInc_layers = 0.008;
+   brightnessFactor_Splash = 130.0;
+   bfInc = 0.02;
+   bfInc_layers = 0.08;
    
    nbob = new NoizeBob();
+    float factor = 60.0;
+    float falloff = 0.6;
+    float inc = 1.0;   
+   splashBob = new NoizeBob(factor, inc, falloff);
    
    theta = 0.;
    thetaInc = 0.05;
@@ -226,7 +231,7 @@ class ColorSortImg {
    
  }
  
- PImage fall_splash() {
+ PImage fall_splash1() {
    imgFalls.loadPixels();
    imgX.loadPixels();
    
@@ -267,13 +272,15 @@ class ColorSortImg {
          
        color ct;
 
-      if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
-         if (y <= height - 2) {
-           ct = imgt.pixels[x + width*(y+1)];
-           imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
-           imgt.pixels[x + width*(y)] = ct;
+      if( brightness(imgFalls.pixels[x + width*y]) < brightnessFactor_Splash) {
+          if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
+           if (y <= height - 2) {
+             ct = imgt.pixels[x + width*(y+1)];
+             imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
+             imgt.pixels[x + width*(y)] = ct;
+           }
          }
-       }
+      }
 
        }
      }
@@ -284,6 +291,55 @@ class ColorSortImg {
     } 
    imgFalls.updatePixels();
    
+   
+   if (height0B > 0) {
+     height0B--;
+   }
+   return imgFalls;
+   
+ }
+ 
+ PImage fall_splash2() {
+   imgFalls.loadPixels();
+   imgX.loadPixels();
+   
+   EmptyTemplate et = new EmptyTemplate();   
+   PImage imgt = et.getEmpty();
+    imgt.loadPixels();
+    for (int i = 0; i < imgt.pixels.length; i++) {
+      imgt.pixels[i] = imgFalls.pixels[i];
+    } 
+   
+   
+   for (int y = 0; y < height; y++) {
+       for (int x = 0; x < width; x++){
+         
+       color ct;
+
+      if (brightness(imgFalls.pixels[x + width*y]) < brightnessFactor_Splash - splashBob.getBob()) {
+        if (brightness(imgFalls.pixels[x + width*y]) < brightness(imgX.pixels[x + width*y])) {
+           if (y <= height - 2) {
+             ct = imgt.pixels[x + width*(y+1)];
+             if (random(1.) > 0.5) {
+               imgt.pixels[x + width*(y+1)] = imgt.pixels[x + width*(y)];
+               imgt.pixels[x + width*(y)] = ct;
+             }
+           }
+         }
+      }
+
+       }
+     }
+     
+     
+    for (int i = 0; i < imgt.pixels.length; i++) {
+      imgFalls.pixels[i] = imgt.pixels[i];
+    } 
+   imgFalls.updatePixels();
+   println(brightnessFactor_Splash);
+   if (brightnessFactor_Splash < 300) {
+     brightnessFactor_Splash += bfInc;
+   }
    
    if (height0B > 0) {
      height0B--;

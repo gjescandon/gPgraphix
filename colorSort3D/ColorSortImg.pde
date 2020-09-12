@@ -54,7 +54,7 @@
    img.loadPixels();
    int fcOff = frameCount - 250;
    float tfactor = (1 - exp(-0.005* fcOff));
-   float zfactor =  4. * (1 - sin(theta)) ;
+   float zfactor =  1. * (1 - cos(theta)) ;
    //zfactor = map(zfactor,0.,1.,0.02,1.);
    float nbobTimer = 0.;
    for (int y = 0; y < height; y++ ) {
