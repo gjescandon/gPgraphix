@@ -12,7 +12,7 @@ class FreakyDots{
  
  void draw(){
    drawDots();
-   //rotateDots();
+   rotateDots();
    //image(img0, 0, 0, width, height);
    //rotateImg(img1, 0.1*sin(theta), 0.9 + (0.2/2)*(1+sin(theta)));
    theta += thetaInc;
@@ -30,9 +30,9 @@ class FreakyDots{
  
  void setup() {
    dots = new Dot[width*height];
-   float fac = 5.;
-   float inc = 0.01;
-   float fall = 0.1;
+   float fac = 9.;
+   float inc = 0.07;
+   float fall = 0.5;
    
    dBob = new NoizeBob(fac, inc, fall);
    //dBob = new NoizeBob();
@@ -75,16 +75,15 @@ class FreakyDots{
       circle(d.x, d.y, dr);
     }
   }
-  println(" " + frameCount  + " " + db + " " + dBob.getBob() + " " + dBob.bob);
  }
 
 void rotateDots() {
   float db =  dBob.getBob();
-  //db = dBob.getBobTail(0-width*height);
 
   float cx = 0.5*width;
   float cy = 0.5*height;
   for (int i=0; i<width*height; i++) {
+    db = dBob.getBobTail(i);
     fill(0,0,255);
     noStroke();
     Dot d = dots[i];
@@ -114,7 +113,6 @@ void rotateDots() {
          x = cx + r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
          y = cy + r *sin(theta0 + toff);
       }
-      println(d.r + db);
       circle(x, y, d.r + db);
     }
   }
