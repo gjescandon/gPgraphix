@@ -12,7 +12,7 @@ class FreakyDots{
  
  void draw(){
    drawDots();
-   rotateDots();
+   //rotateDots();
    //image(img0, 0, 0, width, height);
    //rotateImg(img1, 0.1*sin(theta), 0.9 + (0.2/2)*(1+sin(theta)));
    theta += thetaInc;
@@ -30,30 +30,31 @@ class FreakyDots{
  
  void setup() {
    dots = new Dot[width*height];
-   float fac = 2.;
-   float inc = 0.1;
-   float fall = 0.5;
+   float fac = 5.;
+   float inc = 0.01;
+   float fall = 0.1;
    
    dBob = new NoizeBob(fac, inc, fall);
-   
-   img0 = (new EmptyTemplate()).getEmpty();
-   img0.loadPixels();
+   //dBob = new NoizeBob();
+   //img0 = (new EmptyTemplate()).getEmpty();
+   //img0.loadPixels();
    for (int y = 0; y < height; y++) {
      for (int x = 0; x < width; x++) {
        if (hash(x,y) > 0.7) {
-         float db =  dBob.getBob();
-         Dot d =  new Dot(x,y, 3+ db);
+         Dot d =  new Dot(x,y, 1);
          dots[x + y*width] = d;
-         img0.pixels[x + y*width] = color(0);
+         //img0.pixels[x + y*width] = color(0);
        }
      }
    }
+   /*
    img0.updatePixels();
    
    img1 = (new EmptyTemplate()).getEmpty();
    img1.loadPixels();
    img0.pixels = img0.pixels;
    img1.updatePixels();
+   */
  }
  
  float hash(float x, float y) {
@@ -62,18 +63,25 @@ class FreakyDots{
  }
  
  void drawDots() {
+  float db = dBob.getBob();
+  
   for (int i=0; i<width*height; i++) {
+    db = dBob.getBobTail(i);
     fill(0,0,255);
     noStroke();
     Dot d = dots[i];
     if (d != null) {
-      circle(d.x, d.y, d.r);
+      float dr = d.r + db;
+      circle(d.x, d.y, dr);
     }
   }
+  println(" " + frameCount  + " " + db + " " + dBob.getBob() + " " + dBob.bob);
  }
 
 void rotateDots() {
-  
+  float db =  dBob.getBob();
+  //db = dBob.getBobTail(0-width*height);
+
   float cx = 0.5*width;
   float cy = 0.5*height;
   for (int i=0; i<width*height; i++) {
@@ -83,30 +91,31 @@ void rotateDots() {
     if (d != null) {
       float r = sqrt(pow(d.x - cx,2.) + pow(cy - d.y,2.));
       float toff = 0.05 * (1 + cos(theta + PI));
+      float x = 0.;
+      float y = 0.;
+      float theta0 = 0.;
       if (quadrant(d.x,d.x) == 1) {
-        float theta0 = atan((cy-d.y)/(d.x-cx));
-        float x = cx + r * cos(theta0 + toff); //
-        float y = cy - r *sin(theta0 + toff);
-        circle(x, y, d.r);
+         theta0 = atan((cy-d.y)/(d.x-cx));
+         x = cx + r * cos(theta0 + toff); //
+         y = cy - r *sin(theta0 + toff);
       }
       if (quadrant(d.x,d.x) == 2) {
-        float theta0 = atan((cy-d.y)/(cx-d.x));
-        float x = cx - r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
-        float y = cy - r *sin(theta0 + toff);
-        circle(x, y, d.r);
+         theta0 = atan((cy-d.y)/(cx-d.x));
+         x = cx - r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
+         y = cy - r *sin(theta0 + toff);
       }
       if (quadrant(d.x,d.x) == 3) {
-        float theta0 = atan((d.y-cy)/(cx-d.x));
-        float x = cx - r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
-        float y = cy + r *sin(theta0 + toff);
-        circle(x, y, d.r);
+         theta0 = atan((d.y-cy)/(cx-d.x));
+         x = cx - r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
+         y = cy + r *sin(theta0 + toff);
       }
       if (quadrant(d.x,d.x) == 4) {
-        float theta0 = atan((d.y-cy)/(d.x-cx));
-        float x = cx + r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
-        float y = cy + r *sin(theta0 + toff);
-        circle(x, y, d.r);
+         theta0 = atan((d.y-cy)/(d.x-cx));
+         x = cx + r * cos(theta0 + toff); //+ 0.5 * (1 + cos(theta + PI)
+         y = cy + r *sin(theta0 + toff);
       }
+      println(d.r + db);
+      circle(x, y, d.r + db);
     }
   }
  }

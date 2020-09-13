@@ -6,7 +6,7 @@ class NoizeBob {
   NoizeBob() {
     float factor = 30.0;
     float falloff = 0.5;
-    float inc = 0.1;
+    float inc = 0.01;
     init(factor, inc, falloff);
   }
   
@@ -31,7 +31,7 @@ class NoizeBob {
   
   float getBobTail(int inc_) {
    noiseDetail(nload, falloff);
-   return factor * bob + bobInc * inc_;
+   return factor * noise(bob + bobInc * inc_);
   }  
 }
 
