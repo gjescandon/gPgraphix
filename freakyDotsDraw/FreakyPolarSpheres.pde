@@ -1,4 +1,4 @@
-class FreakyPolarDots{
+class FreakyPolarSpheres{
  PImage img0, img1;
  float theta, thetaInc;
  float theta0, theta0Inc;
@@ -6,7 +6,7 @@ class FreakyPolarDots{
  Dot[] dots;
  NoizeBob dBob;
  color dotColor;
- FreakyPolarDots(){
+ FreakyPolarSpheres(){
    setup();
    theta = 0.;
    theta0 = 0.;
@@ -43,16 +43,7 @@ class FreakyPolarDots{
   }
   popMatrix();
  }
- 
- void rotateImg(PImage img, float theta, float scale) {
-   pushMatrix();
-   translate(0.5*width, 0.5*height);
-   pushMatrix();
-   rotate(theta);   
-   image(img0, -0.5*width*scale, -0.5*height*scale, width * scale, height * scale);
-   popMatrix();
-   popMatrix();
- }
+
  
  void setup() {
    dots = new Dot[width*height];
@@ -68,7 +59,7 @@ class FreakyPolarDots{
        if (hash(t,r) > 0.9) {
          float x = offset + r * cos(t);
          float y = offset + r * sin(t);
-         Dot d =  new Dot(x,y, 1);
+         Dot d =  new Dot(x,y, 3.);
          dots[floor(r + t*rMax)] = d;
        }
      }
@@ -105,18 +96,28 @@ void rotateDots(float theta) {
   translate(0.5*width, 0.5*height);
   pushMatrix();
   rotate(theta);
+
+  float zmin = 100;
+  float zmax = 0;
+
   for (int i=0; i<dots.length; i++) {
     db = dBob.getBobTail(i);
-    fill(dotColor);
     noStroke();
     Dot d = dots[i];
     if (d != null) {
-      circle(d.x, d.y, d.r + db);
+      //circle(d.x, d.y, d.r + db);
+      pushMatrix();
+      float zed = 0- sq(1/(d.dc+100)*1000);
+      translate(d.x, d.y, zed);
+      fill(d.c);
+      sphere(d.r+db);
+      popMatrix();
     }
   }
   popMatrix();
   popMatrix();
  }
+ 
  
  int quadrant(float x, float y) {
   int quadrant = 1;
@@ -136,24 +137,34 @@ void rotateDots(float theta) {
  }
 
  class Dot {
-  float x,y,r;
+  float x,y,r0,r;
+  float dc;
+  color c;
+
   Dot(float x_, float y_, float r_) {
     x = x_;
     y = y_;
-    r = r_;
+    r0 = r_;
+    r = getR();
+    dc = sqrt(sq(x) + sq(y));
+    c = setColor();
   }
   
+ color setColor() {
+  colorMode(HSB,100);   
+  color c = color(10*(noise(dc)) , 0.7*dc, 100, dc);  
+   return c;
+ }  
+ 
   void moveToCenter() {
    //move towards center
-   float cx = 0.;//5*width;
-   float cy = 0.;//5*height;
-   float R = sqrt(sq(x - cx)+sq(y - cy));
-   float t = atan((y - cy)/(x- cx));
-   float descend = 0.5;
+   float R = sqrt(sq(x)+sq(y));
+   float t = atan((y)/(x));
+   float descend = 0.4;
    if (x>0.) {
-     x = (R - 0.4)*abs(cos(t));
+     x = (R - descend)*abs(cos(t));
    } else {
-     x = 0.-(R - 0.4)*abs(cos(t));      
+     x = 0.-(R - descend)*abs(cos(t));      
    }
    
    if (y>0.) {
@@ -161,17 +172,23 @@ void rotateDots(float theta) {
    } else {
      y = 0.-(R - descend)*abs(sin(t));      
    }
-   
-   if (abs(cx-x) + abs(cy-y) < 0.5) {
+   setColor();   
+   if (abs(x) + abs(y) < 0.5) {
      relocate();
    }
+   r = getR();
   }
   
+  float getR() {
+    return r0 * (1. + dc / (1.3*width));
+  }
   void relocate() {
-   float r = 0.4*width + random(0.3*width);
+   dc = 0.4*width + random(0.3*width);
    float t = random(TWO_PI);
-   x = r * cos(t);
-   y = r * sin(t);
+   x = dc * cos(t);
+   y = dc * sin(t);
+   
+   setColor();
   }
   
  }
