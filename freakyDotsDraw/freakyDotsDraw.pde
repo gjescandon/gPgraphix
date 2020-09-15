@@ -1,4 +1,5 @@
 FreakyDots fdots;
+FreakyPolarDots fpdots;
 MoireDots mdots;
 MoireTriangles mtris;
 
@@ -6,14 +7,16 @@ void setup() {
   size(720, 720);
   frameRate(30);
   fdots = new FreakyDots();
+  fpdots = new FreakyPolarDots();
   mdots = new MoireDots();
   mtris = new MoireTriangles();
   
 }
 
 void draw() {
-  background(255);
-  fdots.draw();
+  background(0,0,100);
+  //fdots.draw();
+  fpdots.draw();
   //mdots.draw();
   //mtris.draw();
   /*
