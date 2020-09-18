@@ -31,7 +31,7 @@ void draw() {
   //mtris.draw();
   theta += thetaInc;
   
-  saveFrame();
+  //saveFrame();
 }
 
 void drawNoiseBackground() {

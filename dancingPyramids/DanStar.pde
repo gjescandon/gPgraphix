@@ -23,9 +23,9 @@ class DancingStar {
     PShape dstar = createShape();
     stroke(0,0,0);    
     dstar.beginShape();
-  float tDelta = 0.4*PI;
-  float tOffset = 0.1*PI;
-  float tOffset2 = 0.1*PI - 0.5 * tDelta;
+    float tDelta = 0.4*PI;
+    float tOffset = 0.1*PI;
+    float tOffset2 = 0.1*PI - 0.5 * tDelta;
     for (int i = 0; i < 5; i++) {
       
       dstar.vertex(cX + rad1 * cos(i*tDelta - tOffset), cY + rad1 * sin(i*tDelta - tOffset));
