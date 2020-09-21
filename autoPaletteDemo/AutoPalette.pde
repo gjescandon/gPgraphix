@@ -48,7 +48,7 @@ class AutoPalette{
  
  color getColor(float t0) {
   colorMode(HSB,1.0);
-  float tnom = t0/width;   
+  float tnom = t0;   // between 0.0 and 1.0
 
   color c = color(100,100,100+ random(100));
   float b1f = b1 * cos(TWO_PI*(c1*tnom+d1));
