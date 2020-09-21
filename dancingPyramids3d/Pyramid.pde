@@ -18,8 +18,8 @@ class Pyramid {
     cY = 0.5 * height;
     //cX = cY = 0;
     rad1 = 300.0;
-    rad2 = 0.385 * rad1;
-    rad3 = 0.285 * rad1;
+    rad2 = 0.385 * rad1; // (1-1/1.618)   *** golden ratio
+    rad3 = 0.235 * rad1; // (1/1.618)* (1-1/1.618)
     ph = -60.;
     
     
@@ -114,7 +114,7 @@ class Pyramid {
       
     float factor = 50.;
     float inc = 0.0006;
-    float falloff = 0.3;
+    float falloff = 0.4;
     nbob = new NoizeBob(factor, inc, falloff);
     sbob = new NoizeBob(1., 1*inc, falloff);
       
