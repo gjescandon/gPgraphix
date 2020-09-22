@@ -1,6 +1,6 @@
 class StylesElements{
   AutoPalette autoPal;
-  float theta, thetaInc;
+  float theta, theta1, theta2, theta3, thetaInc;
   float xoff, xoffInc;
   color cs1,cs2,ct1,cy1,cl1,ce1,ce2,cs3,cs4;
   int maxT, pauseCount;
@@ -11,6 +11,7 @@ class StylesElements{
    float xl0, yl0, xlf, ylf, xlinc, ylinc;
    float lw0, lh0, lws, lhs;
   PShape shapeStop, shapeSbottom, shapeT, shapeY, shapeL, shapeE; 
+  float theta0Max, theta1Max,  theta2Max, theta3Max;
   
  StylesElements() {
    autoPal = new AutoPalette(0.7,0.6);
@@ -24,7 +25,7 @@ class StylesElements{
   maxT = 0;
   setupColors();
   setupShapes();
-  pauseCount = 100;
+  pauseCount = 333;
   
    xl0 = .42*width;
    xlf = xl0;
@@ -54,6 +55,15 @@ class StylesElements{
    th0 = 0.5*height;
    tws = 1.0;
    ths = 1.0;
+   
+   theta0Max = 0.;
+   theta1Max = 0.; 
+   theta2Max = 0.;
+   theta3Max = 0.;
+   theta0Max = 0.40*PI;
+   theta1Max = 0.60*PI;
+   theta2Max = 0.4*PI;
+   theta3Max = 0.41*PI;
    
  }
  
@@ -131,7 +141,7 @@ class StylesElements{
     y0 = 0.65*height;
    translate(x0, y0, 0);
      pushMatrix();
-     rotateY(theta); //no thickness cant see it
+     rotateY(theta1); //no thickness cant see it
        fill(cs2);
        pushMatrix();
          rad = 20.;
@@ -155,7 +165,7 @@ class StylesElements{
    y0 = 0.4*height;
    translate(x0, y0, 0);
      pushMatrix();
-     rotateY(0-theta); //no thickness cant see it
+     rotateY(0-theta1); //no thickness cant see it
        fill(cs3);
        pushMatrix();
          rad = 10.;
@@ -184,11 +194,16 @@ class StylesElements{
    popMatrix();
    
    
-  float thetaMax = 0.41*PI;
 
  if (frameCount > pauseCount) {
   theta += thetaInc;
-  if (theta> thetaMax) theta = thetaMax;
+  if (theta> theta0Max) theta = theta0Max;
+  theta1 += thetaInc;
+  if (theta1 > theta1Max) theta1 = theta1Max;
+  theta2 += thetaInc;
+  if (theta2 > theta2Max) theta2 = theta2Max;
+  theta3 += thetaInc;
+  if (theta3 > theta3Max) theta3 = theta3Max;
    if (xoff < 2.) xoff += xoffInc;  
    if (maxT < 300) maxT ++;
  }
@@ -367,8 +382,8 @@ class StylesElements{
     cl1 = autoPal.getColor50(random(1));
     ce1 = autoPal.getColor50(random(1));
     ce2 = autoPal.getColor50(random(1));
-    cs3 = autoPal.getColor50(random(1));
-    cs4 = autoPal.getColor50(random(1));
+    cs3 = autoPal.getColor(random(1));
+    cs4 = autoPal.getColor(random(1));
     
   }
   
