@@ -15,6 +15,6 @@ void draw() {
   background(0);
   //line(wMid,0,wMid,height);
   c1.draw();
-  //c2.draw();
-  //c3.draw();
+  c2.draw();
+  c3.draw();
 }

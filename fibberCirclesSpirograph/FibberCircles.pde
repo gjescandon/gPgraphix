@@ -2,14 +2,14 @@ class FibberCircles {
  int bpm;
  Spiropath spiro;
  QuilezEq qeq;
- int[] pos;
+ float[] pos;
  
   FibberCircles(float toff){
     bpm = 100;//bpm_;
     spiro = new Spiropath(10,12,-5,10, toff);
-    pos = new int[2];
-    pos[0]=0;
-    pos[1]=0;
+    pos = new float[2];
+    pos[0]=0.;
+    pos[1]=0.;
     qeq = new QuilezEq();
   }
   
@@ -48,13 +48,11 @@ class FibberCircles {
     circle(0,0,d);
     if (d > 0.0382*width) {
       float offset = 0.0382*d;
-      float xoff2 = offset;
-      float yoff2 = xoff2;
-      if (xoff < 0) xoff2 = 0 - offset;
-      if (yoff < 0) yoff2 = 0 - offset;
+      float xoff2 = offset * xoff / sqrt(sq(xoff) + sq(yoff));
+      float yoff2 = offset * yoff / sqrt(sq(xoff) + sq(yoff));
+
       pushMatrix();
       translate(0-xoff2,0-yoff2,0);
-
       drawCircle(0.618*d, xoff, yoff);
       popMatrix();
     }

@@ -133,8 +133,8 @@ class Spiropath {
     strokeOff += strokeInc;
   }
 
-  int[] getPosition() {
-    int[] pnt = new int[2];
+  float[] getPosition() {
+    float[] pnt = new float[2];
     pnt[0] = 0;
     pnt[1] = 0;
 
@@ -175,8 +175,8 @@ class Spiropath {
     ssMax = 0.8 * width / (2 * (r1 + abs(r2)));
      float x = r1 * cos(n1 * theta) + r2 * cos(n2 * theta);// + r3 * cos(n3 * theta);
      float y = r1 * sin(n1 * theta) + r2 * sin(n2 * theta);// + r3 * sin(n3 * theta) ;
-     pnt[0] = floor(ss*x);
-     pnt[1] = floor(ss*y);
+     pnt[0] = (ss*x);
+     pnt[1] = (ss*y);
     popMatrix();
     popMatrix();
     ssR = ssR + 0.001;
