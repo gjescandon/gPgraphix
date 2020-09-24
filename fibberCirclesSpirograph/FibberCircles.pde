@@ -14,7 +14,7 @@ class FibberCircles {
   }
   
   void draw() {
-    stroke(0.9);
+    stroke(0.9, 0.8);
     noFill();
     float xoff = 0.;
     float yoff = 0.;
