@@ -10,7 +10,7 @@ void setup() {
 
 void draw() {
   colorMode(HSB,1.0);
-  background(0.9);
-  line(wMid,0,wMid,height);
+  background(0.);
+  //line(wMid,0,wMid,height);
   dice.draw();
 }

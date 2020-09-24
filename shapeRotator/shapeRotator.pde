@@ -18,16 +18,17 @@ void draw() {
   translate(0.5*width, 0.5*height,0);
   pushMatrix();
   rotateY(0-theta); // no thiickness cant see it.
-  pushMatrix();
-  //rotateX(theta);
-  pushMatrix();
-  translate(-10,0,zoff-10);
-  sphere(10);
-  popMatrix();
-  pushMatrix();
-  drawS(5,0);
-  popMatrix();
-  popMatrix();
+    pushMatrix();
+    //rotateX(theta);
+      pushMatrix();
+      translate(-10,0,zoff-10);
+      sphere(10);
+      popMatrix();
+      
+      pushMatrix();
+      drawS(5,0);
+      popMatrix();
+    popMatrix();
   popMatrix();
   popMatrix();
   theta += thetaInc;

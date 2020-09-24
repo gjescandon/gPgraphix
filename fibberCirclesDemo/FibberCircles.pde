@@ -6,7 +6,7 @@ class FibberCircles {
   }
   
   void draw() {
-    stroke(0.);
+    stroke(0.9);
     strokeWeight(4);
     noFill();
     translate(wMid, hMid,0);
