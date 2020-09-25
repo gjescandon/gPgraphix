@@ -1,6 +1,9 @@
 float theta, thetaInc;
 float zoff, zoffInc;
 SpitBalls balls;
+LineStar lstar;
+AutoPalette apal;
+color bc;
 
 void setup() {
  size(720,702,P3D); 
@@ -10,10 +13,15 @@ void setup() {
   zoffInc = 0.05;
   
   balls = new SpitBalls();
+  lstar = new LineStar();
+  
+  apal = new AutoPalette(0.6);
+  bc = apal.getColor(random(1));
 }
 
 void draw() {
-  background(200);
+  colorMode(HSB, 1.0);
+  background(bc);
   stroke(0);
   line(0.5*width,0,0.5*width, height);
   noStroke();
@@ -40,7 +48,7 @@ void draw() {
   if (zoff>10.) zoff = 10.0;
   
   if (theta == 0.5*PI) {
-     balls.draw();
+     lstar.draw();
      
   }
 }

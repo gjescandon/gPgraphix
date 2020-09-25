@@ -12,6 +12,8 @@ class StylesElements{
    float lw0, lh0, lws, lhs;
   PShape shapeStop, shapeSbottom, shapeT, shapeY, shapeL, shapeE; 
   float theta0Max, theta1Max,  theta2Max, theta3Max;
+  SpitBalls sball0, sball1, sball2, sball3;
+  LineStar lstar1, lstar2;
   
  StylesElements() {
    autoPal = new AutoPalette(0.7,0.6);
@@ -46,7 +48,7 @@ class StylesElements{
    yyinc = 1.1;
    
    xt0 = 0.2*width;
-   xtf = 0.;
+   xtf = 0.-0.3*width;
    yt0 = 0.29*height;
    ytf = 0.19*height;
    xtinc = 0.1;
@@ -64,6 +66,14 @@ class StylesElements{
    theta1Max = 0.60*PI;
    theta2Max = 0.4*PI;
    theta3Max = 0.41*PI;
+   
+   sball0 = new SpitBalls();
+   sball1 = new SpitBalls();
+   sball2 = new SpitBalls();
+   sball3 = new SpitBalls();
+   
+   lstar1 = new LineStar();
+   lstar2 = new LineStar();
    
  }
  
@@ -132,7 +142,11 @@ class StylesElements{
          sphere(10);
          popMatrix();
        drawStop(0, 0);
-     popMatrix();  
+     popMatrix(); 
+     
+     if (theta1 == theta1Max) {
+      sball0.draw();
+     }           
    popMatrix();
 
    // bottom S1
@@ -149,15 +163,24 @@ class StylesElements{
          sphere(rad);
          popMatrix();
        drawSbottom(0, 0);
-     popMatrix();  
+     popMatrix(); 
+
+     if (theta1 == theta1Max) {
+      pushMatrix();
+      //translate(1.,0,0);
+      lstar1.draw();
+      popMatrix();
+     }               
    popMatrix();
    
    
    
    x0 = 0.5*width;
-   y0 = 0.6*height;
+   y0 = 0.55*height;
+   pushMatrix();
+   translate(0, 0, 0-200);
    drawE(x0, y0);
-   
+   popMatrix();
    
    // top S2
    pushMatrix();
@@ -173,14 +196,21 @@ class StylesElements{
          sphere(10);
          popMatrix();
        drawStop(0, 0);
-     popMatrix();  
+     popMatrix(); 
+     
+     if (theta1 == theta1Max) {
+      pushMatrix();
+      //translate(1.,0,0);
+      lstar2.draw();
+      popMatrix();
+     }           
    popMatrix();
 
    // bottom S2
    pushMatrix();
-    x0 = 0.73*width;
-    y0 = 0.6*height;
-   translate(x0, y0, 0);
+     x0 = 0.73*width;
+     y0 = 0.6*height;
+     translate(x0, y0, 0);
      pushMatrix();
      rotateY(theta); //no thickness cant see it
        fill(cs4);
@@ -190,7 +220,12 @@ class StylesElements{
          sphere(rad);
          popMatrix();
        drawSbottom(0, 0);
-     popMatrix();  
+     popMatrix(); 
+     
+     if (theta3 == theta3Max) {
+      // spitball[3] 
+      sball3.draw();
+     }     
    popMatrix();
    
    
@@ -207,10 +242,13 @@ class StylesElements{
    if (xoff < 2.) xoff += xoffInc;  
    if (maxT < 300) maxT ++;
  }
+ 
+
    
  }
  
  void drawStretch() {
+
 
    pushMatrix();
    translate(0,0,0-100);
@@ -220,6 +258,11 @@ class StylesElements{
 
    shape(shapeY, xy0, yy0);
 
+   if (frameCount < pauseCount) {
+     return;
+   }
+
+   // T: final position
    xt0-=xtinc;
    if (xt0<=xtf) {
      xt0=xtf;
@@ -229,10 +272,12 @@ class StylesElements{
    //if (yt0<=ytf) yt0=ytf;
    //xl0+=xlinc; xL does not move
    //if (xl0>=xlf) xl0=xlf;
+   
+   // L: final position
    yl0-=ylinc;
    if (yl0<=ylf) yl0=ylf;
-   if (lhs*lh0<= height) lhs += 0.0006;
-   if (tws*tw0<= width)    tws += 0.001;
+   if (lhs*lh0<= height) lhs += 0.006;
+   if (tws*tw0<= width)    tws += 0.01;
 
    
  }
