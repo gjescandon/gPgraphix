@@ -6,10 +6,10 @@ class StylesElements{
   int maxT, pauseCount;
   
    float xt0, yt0, xtf, ytf, xtinc, ytinc;
-   float tw0, th0, tws, ths;
+   float tw0, th0, tws, ths, twsf, tsinc;
    float xy0, yy0, xyf, yyf, xyinc, yyinc;
-   float xl0, yl0, xlf, ylf, xlinc, ylinc;
-   float lw0, lh0, lws, lhs;
+   float xl0, yl0, xlf, ylf, xlinc, ylinc, lsinc;
+   float lw0, lh0, lws, lwsf;
   PShape shapeStop, shapeSbottom, shapeT, shapeY, shapeL, shapeE; 
   float theta0Max, theta1Max,  theta2Max, theta3Max;
   SpitBalls sball0, sball1, sball2, sball3;
@@ -30,15 +30,16 @@ class StylesElements{
   pauseCount = 333;
   
    xl0 = .42*width;
-   xlf = xl0;
+   xlf = 0.618*width;
    yl0 = 0.26*height;
-   ylf = 0.;
-   xlinc = 0.1;
-   ylinc = 0.1;
+   ylf = 0.-0.1*height;
+   xlinc = 0.6;
+   ylinc = 1.;
+   lsinc = 0.006;
    lw0 = 0.2*width;
    lh0 = 0.4*height;
    lws = 1.0;
-   lhs = 1.0;
+   lwsf = 3.0;
    
    xy0 = .33*width;
    xyf = 0.;
@@ -48,15 +49,16 @@ class StylesElements{
    yyinc = 1.1;
    
    xt0 = 0.2*width;
-   xtf = 0.-0.3*width;
+   xtf = 0.-0.08*width;
    yt0 = 0.29*height;
-   ytf = 0.19*height;
-   xtinc = 0.1;
-   ytinc = 0.1;
+   ytf = 0.-0.1*height;
+   xtinc = 0.7;
+   ytinc = 1.;
+   tsinc = 0.006;
    tw0 = 0.4*width;
    th0 = 0.5*height;
    tws = 1.0;
-   ths = 1.0;
+   twsf = 3.0;
    
    theta0Max = 0.;
    theta1Max = 0.; 
@@ -253,32 +255,26 @@ class StylesElements{
    pushMatrix();
    translate(0,0,0-100);
    shape(shapeT, xt0, yt0, tw0*tws, th0*tws);
-   shape(shapeL, xl0, yl0, lw0*lhs, lh0*lhs);   
+   shape(shapeL, xl0, yl0, lw0*tws, lh0*tws);   
    popMatrix();
 
-   shape(shapeY, xy0, yy0);
+   //shape(shapeY, xy0, yy0);
 
    if (frameCount < pauseCount) {
      return;
    }
 
    // T: final position
-   xt0-=xtinc;
-   if (xt0<=xtf) {
-     xt0=xtf;
-   } else {
-     yt0-=ytinc;
-   }
-   //if (yt0<=ytf) yt0=ytf;
-   //xl0+=xlinc; xL does not move
-   //if (xl0>=xlf) xl0=xlf;
+   if (xt0>=xtf) xt0-=xtinc;
+   if (yt0>=ytf) yt0-=ytinc;
+   if (tws <= twsf)    tws += tsinc;
+
    
    // L: final position
-   yl0-=ylinc;
-   if (yl0<=ylf) yl0=ylf;
-   if (lhs*lh0<= height) lhs += 0.006;
-   if (tws*tw0<= width)    tws += 0.01;
-
+   if (xl0<=xlf) xl0+=xlinc;
+   if (yl0>=ylf) yl0-=ylinc;
+   if (lws <= lwsf)    lws += lsinc;
+   
    
  }
  

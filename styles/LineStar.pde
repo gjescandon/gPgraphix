@@ -9,11 +9,11 @@ class LineStar {
  AutoPalette apal;
  int cntr;
  QuilezFunctions qeq;
- NoizeBob radBob;
+ NoizeBob radBob, rotBob, zBob;
  float noizeInc, noizeFloat, noizeFalloff;
  
  LineStar(){
-   thetaInc = PI/24.;
+   thetaInc = PI/12.;
    theta = 0.0;
    thetaOff = 0;
    thetaOinc = TWO_PI/48.;
@@ -31,15 +31,17 @@ class LineStar {
    float noizeFalloff = 0.4;
    
    radBob = new NoizeBob(noizeFactor, noizeInc, noizeFalloff);
+   rotBob = new NoizeBob(noizeFactor, noizeInc, noizeFalloff);
+   zBob = new NoizeBob(-10., noizeInc, noizeFalloff);
  }
  
  void draw() {
    colorMode(HSB, 1.0);
    pushMatrix();
-   //translate(0.5*width, 0.5*height, 0.);
+   translate(0.,0., zBob.getBob());
    pushMatrix();
-   rotate(thetaOff2);
-   float radBobInc = radBob.getBob();
+   rotate(thetaOff2 + rotBob.getBob());
+
    float dist = 220 * dscale(cntr) * (1. + 0.7*sin(0.006*cntr));
    for (int i =0; i < bmax; i++) {
      float bobTail = radBob.getBobTail(i);

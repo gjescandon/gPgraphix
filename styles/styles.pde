@@ -13,9 +13,8 @@ void setup() {
 void draw() {
  colorMode(autoPal.getColor(0.3));
  background(0.9);
-
- //styles.draw();
+ directionalLight(1.,1.,1.,0.618*sin(0.01*frameCount),0.618,-1.);
  styles.drawStretch();
- styles.drawRotate();
+ //styles.drawRotate();
  
 }
