@@ -7,7 +7,7 @@ class StylesElements{
   
    float xt0, yt0, xtf, ytf, xtinc, ytinc;
    float tw0, th0, tws, ths, twsf, tsinc;
-   float xy0, yy0, xyf, yyf, xyinc, yyinc;
+   float xy0, yy0, xyf, yyf, xyinc, yyinc, zy, zyinc;
    float xl0, yl0, xlf, ylf, xlinc, ylinc, lsinc;
    float lw0, lh0, lws, lwsf;
   PShape shapeStop, shapeSbottom, shapeT, shapeY, shapeL, shapeE; 
@@ -15,13 +15,18 @@ class StylesElements{
   SpitBalls sball0, sball1, sball2, sball3;
   LineStar lstar1, lstar2;
   PImage imgE;
+  float yTheta, yThetaInc;
+  NoizeBob ybob;
+  QuilezFunctions qeq;
+  
   
  StylesElements() {
    autoPal = new AutoPalette(random(1));
-   
+   qeq = new QuilezFunctions();
   theta = 0.;
   thetaInc = 0.01;
-  
+  yTheta = 0.;
+  yThetaInc = 0.01;
   
   xoff = 1.;
   xoffInc= 0.001; 
@@ -30,7 +35,7 @@ class StylesElements{
   setupShapes();
   pauseCount = 333;
   
-   xl0 = .46*width;
+   xl0 = .51*width;
    xlf = 0.618*width;
    yl0 = 0.32*height;
    ylf = 0.-0.1*height;
@@ -42,14 +47,16 @@ class StylesElements{
    lws = 1.0;
    lwsf = 3.0;
    
-   xy0 = .33*width;
+   xy0 = .38*width;
    xyf = 0.;
    yy0 = 0.47*height;
    yyf = 0.;
    xyinc = 1.1;
    yyinc = 1.1;
+   zyinc = 1.;
+   zy = 0.;
    
-   xt0 = 0.2*width;
+   xt0 = 0.22*width;
    xtf = 0.-0.08*width;
    yt0 = 0.29*height;
    ytf = 0.-0.1*height;
@@ -78,6 +85,7 @@ class StylesElements{
    lstar1 = new LineStar();
    lstar2 = new LineStar();
    
+   ybob = new NoizeBob(10, 0.1, 0.3);
  }
  
  void draw() {
@@ -129,10 +137,10 @@ class StylesElements{
  void drawRotate() {
    
    // top S1
-   float x0 = 0.18*width;
+   float x0 = 0.2*width;
    float y0 = 0.34*height;
    pushMatrix();
-    x0 = 0.17*width;
+    x0 = 0.22*width;
     y0 = 0.45*height;
    translate(x0, y0, 0);
      pushMatrix();
@@ -153,7 +161,7 @@ class StylesElements{
 
    // bottom S1
    pushMatrix();
-    x0 = 0.17*width;
+    x0 = 0.22*width;
     y0 = 0.65*height;
    translate(x0, y0, 0);
      pushMatrix();
@@ -181,7 +189,7 @@ class StylesElements{
    
    // top S2
    pushMatrix();
-   x0 = 0.73*width;
+   x0 = 0.76*width;
    y0 = 0.4*height;
    translate(x0, y0, 0);
      pushMatrix();
@@ -205,7 +213,7 @@ class StylesElements{
 
    // bottom S2
    pushMatrix();
-     x0 = 0.73*width;
+     x0 = 0.76*width;
      y0 = 0.6*height;
      translate(x0, y0, 0);
      pushMatrix();
@@ -253,8 +261,13 @@ class StylesElements{
    shape(shapeL, xl0, yl0, lw0*tws, lh0*tws);   
    popMatrix();
 
-   shape(shapeY, xy0, yy0);
-
+   pushMatrix();
+     translate(xy0, yy0, 0 - zy);
+   pushMatrix();
+   rotate(yTheta);
+   shape(shapeY, 0, 0);
+    popMatrix();
+    popMatrix();
    if (frameCount < pauseCount) {
      return;
    }
@@ -270,21 +283,30 @@ class StylesElements{
    if (yl0>=ylf) yl0-=ylinc;
    if (lws <= lwsf)    lws += lsinc;
    
-   
+   // Y: rot
+   yTheta += yThetaInc;
+   if (yTheta >TWO_PI) yTheta = 0.;
+   zy += zyinc;
  }
  
  
  void drawUncover() {
    
    pushMatrix();
-   translate(0, 0, -400);
+   translate(0-120, 0, -200);
    fill(ce2);
-   rect(0-250,380,width+500,height);
+   int ww = floor(1.4*width);
+   noStroke();
+   for (int x = 0; x<ww/2; x+=2) {
+     rect(x,380 + 20*ybob.getBobTail(x)*qeq.expSustainedImpulse(frameCount, pauseCount*3, pauseCount*3) ,x+1,height);     
+   }
    popMatrix();
    pushMatrix();
    translate(0, 0, -200);
    if (frameCount > pauseCount) {
      scatterE();
+     ybob.getBob();
+   
    }
    image(imgE, 0-100, 0-100, 1.27* width, 1.27* height);
    popMatrix();
@@ -395,7 +417,7 @@ class StylesElements{
   void createEmask(){
     colorMode(HSB, 1.0);
     float x0 = 380.;
-    float y0 = 420.;
+    float y0 = 460.;
     float a = 1400.;
     float b = 3440.;
     EmptyTemplate et = new EmptyTemplate();
@@ -423,7 +445,7 @@ class StylesElements{
     for (int x = 0; x< width; x++) {
       for (int y = 0; y<height; y++) {
         color ec = imgE.pixels[x*height+y];
-        if ((alpha(ec) > 0.) && (random(1) > 0.995)) {
+        if ((alpha(ec) > 0.) && (random(1) > (0.995 - 0.0001*frameCount))) {
           imgE.pixels[x*height+y] = color(hue(ec), 0., 1.0, 0.);
         }
           

@@ -18,8 +18,8 @@ class LineStar {
    thetaOff = 0;
    thetaOinc = TWO_PI/48.;
    thetaOff2 = 0;
-   thetaO2inc = 0.003;
-   rotFactor = 0.03;
+   thetaO2inc = 0.0003;
+   rotFactor = 0.006;
    
    bmax = floor(TWO_PI/thetaInc);
    apal = new AutoPalette(random(1));
@@ -42,14 +42,14 @@ class LineStar {
    pushMatrix();
    rotate(thetaOff2 + rotBob.getBob());
 
-   float dist = 220 * dscale(cntr) * (1. + 0.7*sin(0.006*cntr));
+   float dist = 220 * dscale(cntr) * (1. + 0.7*sin(0.0006*cntr));
    for (int i =0; i < bmax; i++) {
      float bobTail = radBob.getBobTail(i);
      float thisDist = dist * (1+ bobTail);
        float xoff = thisDist * (1+rotFactor*sin(thetaOff+ thetaOinc*i))*sin(thetaInc*i);
        float yoff = thisDist * (1+rotFactor*sin(thetaOff+ thetaOinc*i))*cos(thetaInc*i);
        pushMatrix();
-       translate(xoff, yoff, 30* bobTail);
+       translate(xoff + bobTail, yoff - bobTail, 0-10.);
        fill(apal.getColor(1.*i/bmax));
        stroke(apal.getColor(1.*i/bmax));
        sphere(10 * dscale(cntr) * thisDist /180.);
