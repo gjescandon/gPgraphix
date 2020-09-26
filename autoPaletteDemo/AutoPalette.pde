@@ -2,10 +2,10 @@ class AutoPalette{
 //https://www.iquilezles.org/www/articles/palettes/palettes.htm  
   float a1 = 0.5;
   float a2 = 0.5;
-  float a3 = 0.5;
+  float a3 = 0.8;
   float b1 = 0.5;
   float b2 = 0.5;
-  float b3 = 0.5;
+  float b3 = 0.1;
   float c1 = 1.0;
   float c2 = 1.0;
   float c3 = 1.0;

@@ -14,9 +14,10 @@ class StylesElements{
   float theta0Max, theta1Max,  theta2Max, theta3Max;
   SpitBalls sball0, sball1, sball2, sball3;
   LineStar lstar1, lstar2;
+  PImage imgE;
   
  StylesElements() {
-   autoPal = new AutoPalette(0.7,0.6);
+   autoPal = new AutoPalette(random(1));
    
   theta = 0.;
   thetaInc = 0.01;
@@ -29,9 +30,9 @@ class StylesElements{
   setupShapes();
   pauseCount = 333;
   
-   xl0 = .42*width;
+   xl0 = .46*width;
    xlf = 0.618*width;
-   yl0 = 0.26*height;
+   yl0 = 0.32*height;
    ylf = 0.-0.1*height;
    xlinc = 0.6;
    ylinc = 1.;
@@ -110,7 +111,6 @@ class StylesElements{
    
    x0 = 0.5*width;
    y0 = 0.6*height;
-   drawE(x0, y0);
    
    scale(0.8);
    pushMatrix();
@@ -177,12 +177,7 @@ class StylesElements{
    
    
    
-   x0 = 0.5*width;
-   y0 = 0.55*height;
-   pushMatrix();
-   translate(0, 0, 0-200);
-   drawE(x0, y0);
-   popMatrix();
+
    
    // top S2
    pushMatrix();
@@ -251,14 +246,14 @@ class StylesElements{
  
  void drawStretch() {
 
-
+   colorMode(HSB, 1.0);
    pushMatrix();
    translate(0,0,0-100);
    shape(shapeT, xt0, yt0, tw0*tws, th0*tws);
    shape(shapeL, xl0, yl0, lw0*tws, lh0*tws);   
    popMatrix();
 
-   //shape(shapeY, xy0, yy0);
+   shape(shapeY, xy0, yy0);
 
    if (frameCount < pauseCount) {
      return;
@@ -277,6 +272,24 @@ class StylesElements{
    
    
  }
+ 
+ 
+ void drawUncover() {
+   
+   pushMatrix();
+   translate(0, 0, -400);
+   fill(ce2);
+   rect(0-250,380,width+500,height);
+   popMatrix();
+   pushMatrix();
+   translate(0, 0, -200);
+   if (frameCount > pauseCount) {
+     scatterE();
+   }
+   image(imgE, 0-100, 0-100, 1.27* width, 1.27* height);
+   popMatrix();
+ }
+ 
  
  void drawStop(float x0, float y0){
    // 1. S
@@ -323,15 +336,17 @@ class StylesElements{
    float r1b = 0;
    float r1c = 0.02*width;
    float r1d = 0.4*height;
-   fill(ct1);
-
-   shapeT.addChild(createShape(RECT,r1a, r1b, r1c, r1d));
+   PShape ps = createShape(RECT,r1a, r1b, r1c, r1d);
+   ps.setFill(ct1);
+   shapeT.addChild(ps);
    
    float r2a = 0;
    float r2b = 0.1*height;
    float r2c = 0.5*width;
    float r2d = 0.02*height;
-   shapeT.addChild(createShape(RECT,r2a, r2b, r2c, r2d));
+   PShape ps2 = createShape(RECT,r2a, r2b, r2c, r2d);
+   ps2.setFill(ct1);
+   shapeT.addChild(ps2);
    
  }
  
@@ -339,7 +354,6 @@ class StylesElements{
 
    // 3. y
    noStroke();
-   fill(cy1);
    float thick = 14.0;
    shapeY = createShape();
     shapeY.beginShape();
@@ -361,70 +375,79 @@ class StylesElements{
   
    // 4. L
    shapeL = createShape(GROUP);
-   noStroke();
-
-   fill(cl1);
-
    float rl1a = 0;
    float rl1b = 0;
    float rl1c = 0.02*width;
    float rl1d = 0.4*height;
-   shapeL.addChild(createShape(RECT,rl1a, rl1b, rl1c, rl1d));
+   PShape ps = createShape(RECT,rl1a, rl1b, rl1c, rl1d);
+   ps.setFill(cl1);
+   shapeL.addChild(ps);
    float rl2a = 0;
    float rl2b = 0+rl1d;
    float rl2c = 0.2*width;
    float rl2d = 0.03*height;
-   rect(rl2a, rl2b, rl2c, rl2d);
-   shapeL.addChild(createShape(RECT,rl2a, rl2b, rl2c, rl2d));
+   PShape ps2 = createShape(RECT,rl2a, rl2b, rl2c, rl2d);
+   ps2.setFill(cl1);
+   shapeL.addChild(ps2);
    
  }
  
-  void drawE(float x0, float y0){
-
-   
-   // 5. e
-   
-   noStroke();
-   fill(ce1);
-
-   float rr1a = x0;
-   float rr1b = y0;
-   float rr1c = rr1a+150;
-   float rr1d = y0;
-   
-   PShape e1 = createShape();
-    e1.beginShape();
-    e1.vertex(rr1a, rr1b);
-    e1.bezierVertex(rr1a, rr1b-60, rr1c, rr1d-60, rr1c, rr1d);
-    e1.bezierVertex(rr1c, rr1d, rr1a, rr1b, rr1a, rr1b);
-    e1.endShape();
-    shape(e1);
-    
-   fill(ce2);
-   float rr2a = rr1a;
-   float rr2b = rr1b;
-   float rr2c = rr1c;
-   float rr2d = rr1d;
-
-    PShape e2 = createShape();
-    e2.beginShape();
-    e2.vertex(rr2a, rr2b);
-    e2.bezierVertex(rr2a, rr2b, rr2c, rr2d, rr2c, rr2d);
-    e2.bezierVertex(rr2c, rr2d+60, rr2a, rr2b+60, rr2a, rr2b);
-    e2.endShape();
-    shape(e2);
+  void createEmask(){
+    colorMode(HSB, 1.0);
+    float x0 = 380.;
+    float y0 = 420.;
+    float a = 1400.;
+    float b = 3440.;
+    EmptyTemplate et = new EmptyTemplate();
+    AutoPalette epal = new AutoPalette(random(1));
+    imgE = et.getEmpty();
+    imgE.loadPixels();
+    color ec = epal.getColor(random(1));
+    ec = ce2;
+    println(hue(ec));
+    for (int x = 0; x< width; x++) {
+      for (int y = 0; y<height; y++) {
+        float rr= sq(x-x0)/a + sq(y-y0)/b;
+        //imgE.pixels[x*height+y] = color(random(1), 0., 1.0, 0.);
+        if (rr > 1) {
+          imgE.pixels[x*height+y] = color(110,0.1,0.9);
+        }
+          
+      }
+    }
+    imgE.updatePixels();
+  }
+  
+  void scatterE() {
+    imgE.loadPixels();
+    for (int x = 0; x< width; x++) {
+      for (int y = 0; y<height; y++) {
+        color ec = imgE.pixels[x*height+y];
+        if ((alpha(ec) > 0.) && (random(1) > 0.995)) {
+          imgE.pixels[x*height+y] = color(hue(ec), 0., 1.0, 0.);
+        }
+          
+      }
+    }
+    imgE.updatePixels();    
   }
   
   void setupColors() {
     cs1 = autoPal.getColor(random(1));
-    cs2 = autoPal.getColor(random(1));
+    cs2 = autoPal.getColor(random(10) - 10.);
     ct1 = autoPal.getColor50(random(1));
-    cy1 = autoPal.getColor50(random(1));
+    println(ct1);
+    cy1 = autoPal.getColor50(random(10) - 10.);
+    println(cy1);
     cl1 = autoPal.getColor50(random(1));
-    ce1 = autoPal.getColor50(random(1));
-    ce2 = autoPal.getColor50(random(1));
+    println(cl1);
+    ce1 = autoPal.getColor(random(1));
+    ce2 = autoPal.getColor(random(1));
     cs3 = autoPal.getColor(random(1));
     cs4 = autoPal.getColor(random(1));
+    
+    
+    
     
   }
   
@@ -432,6 +455,8 @@ class StylesElements{
     createT();
     createY();
     createL();
+    createEmask();
+    autoPal.test();
   }
 }
   

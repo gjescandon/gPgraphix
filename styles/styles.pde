@@ -1,20 +1,20 @@
 AutoPalette autoPal;
 StylesElements styles;
-
+color bc;
 ShapeDemo shape;
 void setup() {
   size(720, 720, P3D);
-  autoPal = new AutoPalette(random(1));
+  autoPal = new AutoPalette(0.3);
   styles = new StylesElements();
-  shape = new ShapeDemo();
-
+  bc = autoPal.getColor(random(1));
 }
 
 void draw() {
- colorMode(autoPal.getColor(0.3));
- background(0.9);
- directionalLight(1.,1.,1.,0.618*sin(0.01*frameCount),0.618,-1.);
+ colorMode(HSB,1.);
+ background(bc);
+ directionalLight(1.,0.,1.,0.618*sin(0.01*frameCount),0.618,-1.);
  styles.drawStretch();
- //styles.drawRotate();
+ styles.drawUncover();
+ styles.drawRotate();
  
 }

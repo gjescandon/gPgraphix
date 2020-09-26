@@ -14,6 +14,7 @@ void draw() {
    float xr = x+random(width);
    if (xr > width) xr -= width;
    circle(xr,random(height), random(67));
+   line(x,0.6*height,x, 0.8*height);
  }
  
  noLoop();
