@@ -14,7 +14,7 @@ void setup() {
   
   EmptyTemplate mt = new EmptyTemplate();
   nuImg = mt.getEmpty();
-  zBob = new NoizeBob(200., 0.003, 0.7);
+  zBob = new NoizeBob(1., 0.006, 0.4);
   yBob = new NoizeBob_2D(200., 0.003, 0.7);
   apal = new AutoPalette(random(1));
   bc = apal.getColor(random(1));
@@ -45,30 +45,36 @@ void draw() {
   bp = createShape();
   bp.beginShape();
   bp.vertex(diameter,0);
-  
+  float ctrl = zBob.getBob();
   for (int i=0; i<pMax;i++){
-     float xc1 =1.8*diameter*cos(theta);
-     float yc1 = 1.8*diameter*sin(theta);
-     float xc2 = 1.8*diameter*cos(theta+tOff);
-     float yc2 = 1.8*diameter*sin(theta+tOff);
+     float xc1 =(1.6+zBob.getBobTail(i))*diameter*cos(theta+zBob.getBobTail(i)-0.5);
+     float yc1 = (1.6+zBob.getBobTail(i))*diameter*sin(theta+zBob.getBobTail(i)-0.5);
+     float xc2 = (1.6+zBob.getBobTail(i+1))*diameter*cos(theta+tOff+zBob.getBobTail(i+1)-0.5);
+     float yc2 = (1.6+zBob.getBobTail(i+1))*diameter*sin(theta+tOff+zBob.getBobTail(i+1)-0.5);
      float x2 = diameter*cos(theta+tOff);
      float y2 = diameter*sin(theta+tOff);
       bp.bezierVertex(xc1,yc1,xc2,yc2,x2,y2);
        theta += tOff;
   }
   bp.endShape();
-  pushMatrix();
-      rotate(0.003*frameCount);
-      bp.setFill(fc1);
-      shape(bp,0,0);
-      bp.setFill(fc2);
-      shape(bp,0,0, 2.616*diameter, 2.616 * diameter);
-      bp.setFill(fc3);
-      shape(bp,0,0, 2.416*diameter, 2.416 * diameter);
-      bp.setFill(fc1);
-      shape(bp,0,0, 2.216*diameter, 2.216 * diameter);
-       pushMatrix();
-       popMatrix();
+      
+      pushMatrix();
+        rotate(0.003*frameCount);
+        bp.setFill(fc1);
+        shape(bp,0,0);
+
+        translate(0,0,2);
+        bp.setFill(fc2);
+        shape(bp,0,0, 2.616*diameter, 2.616 * diameter);
+        
+        translate(0,0,2);
+        bp.setFill(fc3);
+        shape(bp,0,0, 2.416*diameter, 2.416 * diameter);
+        
+        translate(0,0,2);
+        bp.setFill(fc1);
+        shape(bp,0,0, 2.016*diameter, 2.016 * diameter);
+
        popMatrix();
   popMatrix();
  
