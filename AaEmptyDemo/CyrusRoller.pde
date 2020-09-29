@@ -19,7 +19,7 @@ class CyrusRoller {
    yoff = height-1;
    xoff = 10;
    
-   noizeDuty = new NoizeBob(0.5, 0.3);
+   noizeDuty = new NoizeBob(1., 0.5, 0.3);
 
  }
   
