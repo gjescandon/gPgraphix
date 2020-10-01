@@ -14,8 +14,8 @@ void setup() {
   
   EmptyTemplate mt = new EmptyTemplate();
   nuImg = mt.getEmpty();
-  zBob = new NoizeBob(200., 0.003, 0.7);
-  yBob = new NoizeBob_2D(10., 0.003, 0.3);
+  zBob = new NoizeBob(200., 0.0003, 0.7);
+  yBob = new NoizeBob_2D(10., 0.0003, 0.3);
   apal = new AutoPalette(random(1));
   bc = apal.getColor(random(1));
   qeq = new QuilezFunctions();
