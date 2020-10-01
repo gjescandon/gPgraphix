@@ -7,6 +7,7 @@ AutoPalette apal;
 color bc;
 color fc1, fc2, fc3;
 float wOff, hOff, diameter; 
+PImage img;
 
 void setup() {
   size(720,720, P3D);
@@ -25,18 +26,20 @@ void setup() {
   wOff = 0.5*width;
   hOff = 0.5*height;
   diameter = 0.191*width;
+  img = loadImage("catMarch01.png");
 }
 
 void draw() {
   background(bc);
   int dmax = 8;
   float bw = 1.*width/dmax;
+
   zBob.getBob();
   yBob.getBob();
-  
+
   translate(wOff, hOff);
   pushMatrix();
-  //circle(0,0,diameter);
+  sphere(0.5*diameter);
   PShape bp;
   
   int pMax = 6;
