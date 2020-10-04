@@ -14,8 +14,8 @@ void setup() {
   
   EmptyTemplate mt = new EmptyTemplate();
   nuImg = mt.getEmpty();
-  zBob = new NoizeBob(200., 0.0003, 0.7);
-  yBob = new NoizeBob_2D(10., 0.0003, 0.3);
+  zBob = new NoizeBob(200., 0.006, 0.7);
+  yBob = new NoizeBob_2D(10., 0.003, 0.3);
   apal = new AutoPalette(random(1));
   bc = apal.getColor(random(1));
   qeq = new QuilezFunctions();
@@ -31,10 +31,10 @@ void draw() {
   bw= 200;
   zBob.getBob();
   yBob.getBob();
-  //translate(0,0,-300);
+
   directionalLight(1.,0.,1.,0.5*sin(0.01*frameCount),0.,-1);
   rotateX(0.1*sin(0.001*frameCount) - 0.2*PI);
-  //rotateX(-0.4);
+
   translate(w0-50*sin(0.01*yBob.getBob()), h0-50*cos(0.01*yBob.getBob()), 0);
   pushMatrix();
   rotateY(0.1*(0.01*frameCount));
@@ -43,7 +43,7 @@ void draw() {
     pushMatrix();
     translate(bw*cos(i*tFib+ 0.005*zBob.getBobTail(i*10)), bw*sin(i*tFib+ 0.005*zBob.getBobTail(i*10)), 0-8*i);
     noStroke();
-    fill(apal.getColor50(0.005*zBob.getBobTail(i*10)));
+    fill(apal.getColor50(0.005*zBob.getBobTail(i*50)));
     box(zBob.getBobTail(1+i));
     popMatrix();
   }
