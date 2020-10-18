@@ -8,6 +8,7 @@ color bc;
 color fc1, fc2, fc3;
 float wOff, hOff, diameter; 
 PImage img;
+BobbleBoxPistil bbPistil;
 
 void setup() {
   size(720,720, P3D);
@@ -25,8 +26,10 @@ void setup() {
   qeq = new QuilezFunctions();
   wOff = 0.5*width;
   hOff = 0.5*height;
-  diameter = 0.191*width;
+  diameter = 0.23*width;
   img = loadImage("catMarch01.png");
+  
+  bbPistil = new BobbleBoxPistil();
 }
 
 void draw() {
@@ -34,12 +37,14 @@ void draw() {
   int dmax = 8;
   float bw = 1.*width/dmax;
 
+  bbPistil.draw();
+
   zBob.getBob();
   yBob.getBob();
 
   translate(wOff, hOff);
   pushMatrix();
-  sphere(0.5*diameter);
+  //sphere(0.5*diameter);
   PShape bp;
   
   int pMax = 6;
@@ -62,23 +67,24 @@ void draw() {
   bp.endShape();
       
       pushMatrix();
-        rotate(0.003*frameCount);
+        rotate(0.0009*frameCount);
         bp.setFill(fc1);
         shape(bp,0,0);
 
-        translate(0,0,2);
+        translate(0,0,1);
         bp.setFill(fc2);
         shape(bp,0,0, 2.616*diameter, 2.616 * diameter);
         
-        translate(0,0,2);
+        translate(0,0,1);
         bp.setFill(fc3);
         shape(bp,0,0, 2.416*diameter, 2.416 * diameter);
         
-        translate(0,0,2);
+        translate(0,0,1);
         bp.setFill(fc1);
         shape(bp,0,0, 2.016*diameter, 2.016 * diameter);
 
        popMatrix();
   popMatrix();
- 
+  saveFrame();
+  println(frameCount);
 }

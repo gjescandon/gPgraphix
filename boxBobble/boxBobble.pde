@@ -1,5 +1,6 @@
 PImage nuImg;
 CyrusRoller croller;
+BobbleBoxPistil bbPistil;
 
 void setup() {
   size(720,720, P3D);
@@ -9,12 +10,12 @@ void setup() {
   croller = new CyrusRoller();
   croller.setup();
   background(24,24,0);
+  bbPistil = new BobbleBoxPistil();
 }
 
 void draw() {
   croller.draw();
-  pushMatrix();
-  translate(0.5*width, 0.5*height, -10);
-  box(50, 50, 50);
-  popMatrix();
+  bbPistil.draw();
+  //saveFrame();
+  println(frameCount);
 }

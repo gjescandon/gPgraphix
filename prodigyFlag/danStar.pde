@@ -18,7 +18,7 @@ float loopTimer;
 void draw() {
   loopTimer = 0.01*frameCount;
 
-  if (loopTimer < 8*PI) {
+  if (loopTimer < 64*PI) {
    translate(0.5*width-25,0.5*height-15);
    pushMatrix();
    rotateX(sin(loopTimer)*(0.2*sin(0.003*frameCount + sbob.getBob())));
