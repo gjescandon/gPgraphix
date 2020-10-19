@@ -22,13 +22,12 @@ class AutoPalette{
  
  AutoPalette(float r){
    d1 = random(1);
-   if (r < 0.3) {
-     d2 = random(1);
-   }
-   if (r < 0.7) {
-     d3 = random(1);
-   }
+   d2 = frac(d1+0.3);
+   d3 = frac(d2+0.3);
+   a1 = r;
+   b1 = 0.03;
  }
+ 
  AutoPalette(float r, float s){
    d1 = random(1);
    if (r < 0.3) {
@@ -63,10 +62,31 @@ class AutoPalette{
   return c;   
  }
  
+ color getColorBlues(float t0) {
+  colorMode(HSB,1.0);
+  float tnom = t0;   // between 0.0 and 1.0
+
+  color c;
+  a1 = 0.6;
+  b1 = 0.2;
+  float b1f = b1 * cos(TWO_PI*(c1*tnom+d1));
+  float h1 = factor * (a1 + b1f);
+  float b2f = b2 * cos(TWO_PI*(c2*tnom+d2));
+  float s2 = factor * (a2 + b2f);
+  float b3f = + b3 * cos(TWO_PI*(c3*tnom+d3));
+  float b3 = factor * (a3 + b3f);
+  c = color(h1,s2,b3);
+  return c;   
+ }
+ 
  color getColor50(float t0){
    colorMode(HSB,1.0);
    color c = getColor(t0);  
    return color(hue(c), saturation(c), brightness(c), 0.7);
+ }
+ 
+ float frac(float x) {
+   return (x - floor(x)); 
  }
  
  void test() { 

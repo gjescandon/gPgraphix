@@ -1,7 +1,7 @@
 class CyrusRoller {
  PImage img;
  Roller[] rollers;
- int rmax = 36;
+ int rmax = 23;
  int yoff, xoff;
  EmptyTemplate et;
  NoizeBob noizeDuty;
@@ -11,7 +11,7 @@ class CyrusRoller {
    
   et = new EmptyTemplate();
   img = et.getEmpty();
-   apal = new AutoPalette(0.9);
+   apal = new AutoPalette();
   
   rollers = new Roller[rmax];
   
@@ -33,15 +33,17 @@ class CyrusRoller {
       PImage tempc = et.getEmpty(width, 1);
       tempc.loadPixels();
       for(int j= 0; j < rmax; j++) {
-        int yoff = rollers[j].getYoff();
-        int xmin = yoff * width  + rollers[j].getXmin();
-        xmin = xmin < 0 ? 0 : xmin;
-        int xmax = yoff * width  + rollers[j].getXmax();
-        xmax = xmax > img.pixels.length - 1 ? img.pixels.length - 1 : xmax;
-        color rpaint = rollers[j].getPaint();
-        for (int i = xmin; i < xmax; i++) {
-          float duty = noizeDuty.getBob();
-          if (duty < random(1)) img.pixels[i] = rpaint;
+        if (random(1) > 0.8) {
+          int yoff = rollers[j].getYoff();
+          int xmin = yoff * width  + rollers[j].getXmin();
+          xmin = xmin < 0 ? 0 : xmin;
+          int xmax = yoff * width  + rollers[j].getXmax();
+          xmax = xmax > img.pixels.length - 1 ? img.pixels.length - 1 : xmax;
+          color rpaint = rollers[j].getPaint();
+          for (int i = xmin; i < xmax; i++) {
+            float duty = noizeDuty.getBob();
+            if (duty < random(1)) img.pixels[i] = rpaint;
+          }
         }
       }
       
@@ -129,7 +131,7 @@ class CyrusRoller {
     yoffset = 0; //floor(0.0 - random(34));
     isDelayed = true;
     frameStartPoint = frameCount + floor(random(720));
-    noizeBob = new NoizeBob(30, 0.1, 0.8);
+    noizeBob = new NoizeBob(50, 0.1, 0.3);
   }
 }
  }
