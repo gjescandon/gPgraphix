@@ -28,6 +28,8 @@ class AutoPalette{
    if (r < 0.7) {
      d3 = random(1);
    }
+   a1 = r;
+   b1 = 0.1;
  }
  AutoPalette(float r, float s){
    d1 = random(1);
@@ -49,8 +51,9 @@ class AutoPalette{
  }
  
  color getColor(float t0) {
+   
   colorMode(HSB,1.0);
-  float tnom = t0;   // between 0.0 and 1.0
+  float tnom = t0 - floor(t0);   // between 0.0 and 1.0
 
   color c;
   float b1f = b1 * cos(TWO_PI*(c1*tnom+d1));
