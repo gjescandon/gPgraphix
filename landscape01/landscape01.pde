@@ -46,7 +46,7 @@ void draw() {
   
   croller.draw(floor(hy));
   
-  hy = 0.5*height + hbob.getBob();
+  hy = 0.6*height + hbob.getBob() - 0.1 * height *cos(0.0001*frameCount);
 
 //  saveFrame();
   println(frameCount);
