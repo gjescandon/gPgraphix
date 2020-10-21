@@ -1,7 +1,7 @@
 class Mandala {
   
   float r = 10.;
-  float rc0 = 8.0;
+  float rc0 = 5.0;
   float tOff = 0.0;
   float tinc = 137.5*TWO_PI/360.;
   NoizeBob pbob;
@@ -10,9 +10,9 @@ class Mandala {
   float ci = 0.01;
   float cinc = 0.03;
   float ccinc = 0.003;
-  
+  float rs = 0.0003;
  Mandala(){
-   pbob = new NoizeBob(1.0, 0.001, 0.5);
+   pbob = new NoizeBob(1.0, 0.006, 0.5);
    apal = new AutoPalette(0.6);
  }
  
@@ -34,13 +34,14 @@ class Mandala {
      float rq =4.0*(r)/(0.5*width);
      if (rq%2<1.0) {
        pushMatrix();
-       rotateZ(PI-0.0001*frameCount);
-       drawCircle(0.9*r, tMax, tOff, rc, cc);
+       
+       rotateZ(PI-rs*frameCount);
+       drawCircle((0.9)*r, tMax, tOff, rc, cc);
        popMatrix();
      } else {
        pushMatrix();
-       rotateZ(PI+0.0001*frameCount);
-       drawCircle(0.9*r, tMax, tOff, rc, cc);
+       rotateZ(PI+rs*frameCount);
+       drawCircle((0.9)*r, tMax, tOff, rc, cc);
        popMatrix();  
      }
 
@@ -58,9 +59,9 @@ class Mandala {
    float td = PI / tMax;
    pushMatrix();
    
-   float rq =4.0*(rr+100)/(0.5*width);
+   float rq =4.0*(rr*1.1)/(0.5*width);
    rotateZ(tOff);
-   translate(0.0, 0.0, -1.0);
+   translate(0.0, 0.0, 5*(1-frac(rq)));
    for (int t= 0; t <= tMax; t++) {
      float x = rr*cos(t*td);
      float y = rr*sin(t*td);
@@ -68,12 +69,20 @@ class Mandala {
      float sat = saturation(cc);
      float brit = brightness(cc);
      float alpha = pow(1.0-frac(rq),0.5);
+     stroke(color(hue,sat,brit,alpha));
      fill(color(hue,sat,brit,alpha));
      
      circle(x + pbob.getBobTail(t), y  + pbob.getBobTail(t+1), alpha*rc);
+     pushMatrix();
+     translate(x + pbob.getBobTail(t), y  + pbob.getBobTail(t+1), 0.);
+     //sphere(alpha*rc);
+     popMatrix();
      if (t > 0 && t < tMax) {
        circle(x  + pbob.getBobTail(t+2),  pbob.getBobTail(t+3)-y, alpha*rc);
-     }
+       pushMatrix();
+       translate(x + pbob.getBobTail(t+2), pbob.getBobTail(t+3)-y, 0);
+       //sphere(alpha*rc);
+       popMatrix();     }
    }   
    popMatrix();
    
