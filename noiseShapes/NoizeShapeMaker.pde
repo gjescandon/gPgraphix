@@ -17,7 +17,7 @@ class NoizeShape {
   
   NoizeShape() {
     setup();
-    apal = new AutoPalette(0.4, 0.3);
+    apal = new AutoPalette();
     cc = 0.0;
     cinc = 0.0001;
     qf = new QuilezFunctions();
@@ -64,7 +64,7 @@ class NoizeShape {
     PShape ns = createShape();
     color ccc = apal.getColor50(cc);
     ns.setFill(ccc);
-    ns.setStroke((apal.getColor50(cc+0.5)));
+    ns.setStroke((apal.getColor(cc+0.5)));
     
     cc += cinc;
     float k = 2+10*(1-sin(0.003*frameCount + poff*TWO_PI));
@@ -93,8 +93,8 @@ class NoizeShape {
   
   void setup() {
     xoff = width/(node);
-    float binc = 0.007;
-    float boff = 400;
+    float binc = 0.009;
+    float boff = 900;
     float bfall = 0.9;
     int nnn = floor(node*node*node);
     xvals = new float[nnn];

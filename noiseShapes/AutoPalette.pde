@@ -16,10 +16,11 @@ class AutoPalette{
   NoizeBob cbob;
   
  AutoPalette(){
-   d1 = 0.0;
-   d2 = 0.3;
-   d3 = 0.6;  
+   d1 = random(1);
+   d2 = random(1);
+   d3 = random(1);  
    cbob = new NoizeBob();
+   cbob = new NoizeBob(1.0, 0.006, 0.6);
  }
  
  AutoPalette(float r){
@@ -68,7 +69,7 @@ class AutoPalette{
  color getColor50(float t0){
    colorMode(HSB,1.0);
    color c = getColor(t0);  
-   return color(hue(c), saturation(c), brightness(c), 0.6 + cbob.getBob());
+   return color(hue(c), saturation(c), brightness(c), 0.5 + cbob.getBob());
  }
  
  void test() { 

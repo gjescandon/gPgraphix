@@ -28,6 +28,6 @@ void draw() {
   ns3.drawRotating(toff3);
   ns3.drawRotating(toff3+0.5*PI);
   
-  //noLoop();
-  //println(frameCount);
+  
+  println(frameCount);
 }
