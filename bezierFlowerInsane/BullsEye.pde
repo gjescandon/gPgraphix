@@ -1,56 +1,39 @@
-PImage nuImg;
-
-NoizeBob zBob;
-NoizeBob_2D yBob;
-QuilezFunctions qeq;
-AutoPalette apal;
-color bc;
-float fc1, fc2, fc3, fc4;
-float wOff, hOff, diameter; 
-PImage img;
-BobbleBoxPistil bbPistil;
-color chromaKey;
-//****
-boolean saveFrame = true;
-//****
-
-void setup() {
-  size(1280,720, P3D);
-  colorMode(HSB, 1.);
+class BullsEye {
   
-  chromaKey = color(0.4,1.0,1.0);
-  EmptyTemplate mt = new EmptyTemplate();
-  nuImg = mt.getEmpty();
-  zBob = new NoizeBob(1., 0.006, 0.4);
-  yBob = new NoizeBob_2D(200., 0.003, 0.7);
-  apal = new AutoPalette(random(1));
-  bc = apal.getColor(random(1));
+  AutoPalette apal;
+  BezierFlower bf;
+  
+  BullsEye() {
+    apal = new AutoPalette();
+    bf = new BezierFlower();
+  }
+  
+  void draw() {
+    float d= 0.3*height;
+    float fcOff = 0.001*frameCount;
+    pushMatrix();
+    translate(d,d,0);
+    bf.draw();
+    popMatrix();
+    
+  }
+  
+}
+
+class BezierFlower {
+ float diameter;
+ float fc1, fc2, fc3, fc4;
+ AutoPalette apal;
+ BezierFlower(){
+   diameter = 0.67*height;
   fc1 = random(1);
   fc2 = random(1);
   fc3 = random(1);
-  fc4 = random(1);
-  qeq = new QuilezFunctions();
-  wOff = 0.5*width;
-  hOff = 0.5*height;
-  diameter = 0.23*width;
-  img = loadImage("catMarch01.png");
-  
-  bbPistil = new BobbleBoxPistil();
-}
-
-void draw() {
-  //background(apal.getColor(0.0001*frameCount));
-  background(chromaKey);
-        
-  int dmax = 8;
-  float bw = 1.*width/dmax;
-
-  bbPistil.draw();
-
-  zBob.getBob();
-  yBob.getBob();
-
-  translate(wOff, hOff);
+  fc4 = random(1); 
+  apal = new AutoPalette();
+ }
+ 
+ void draw() {
   pushMatrix();
   //sphere(0.5*diameter);
   PShape bp;
@@ -94,6 +77,5 @@ void draw() {
 
        popMatrix();
   popMatrix();
-  if (saveFrame) saveFrame();
-  println(frameCount);
+ }
 }

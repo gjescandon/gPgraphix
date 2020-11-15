@@ -17,7 +17,10 @@ class AutoPalette{
  AutoPalette(){
    d1 = 0.0;
    d2 = 0.3;
-   d3 = 0.6;   
+   d3 = 0.6;
+   d1 = random(1);
+   d2 = random(1);
+   d3 = random(1);
  }
  
  AutoPalette(float r){
@@ -29,27 +32,23 @@ class AutoPalette{
      d3 = random(1);
    }
  }
- AutoPalette(float r, float s){
+ AutoPalette(float sat, float brit){
    d1 = random(1);
-   if (r < 0.3) {
      d2 = random(1);
-   }
-   if (r < 0.7) {
      d3 = random(1);
-   }
    
    // power up
    c1 *= 1.+floor(random(1))%3;
-   if (s < 0.3) {
      c2 *= 1.+ floor(random(1))%3;
-   }
-   if (s < 0.7) {
      c3 *= 1.+floor(random(1))%3;
-   }
+   
+   a2 = sat;
+   a3 = brit;
  }
  
  color getColor(float t0) {
-   t0 = t0 - floor(t0);
+  t0 = t0 - floor(t0);
+  
   colorMode(HSB,1.0);
   float tnom = t0;   // between 0.0 and 1.0
 
@@ -66,12 +65,16 @@ class AutoPalette{
  
  color getColor50(float t0){
    t0 = t0 - floor(t0);
-   
    colorMode(HSB,1.0);
    color c = getColor(t0);  
    return color(hue(c), saturation(c), brightness(c), 0.7);
  }
  
+ AutoPalette newApalDar(){
+   AutoPalette apal = new AutoPalette(0.1, 0.3);
+   
+   return apal;
+ }
  void test() { 
    for (int x=0; x < width; x++) {
    stroke(this.getColor(1.0*x/width));

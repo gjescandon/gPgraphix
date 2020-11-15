@@ -114,7 +114,7 @@ class FlockBox{
       PImage pim = getPim();
       
       fb.beginShape(QUADS);
-      //fb.noStroke();
+      fb.noStroke();
       fb.texture(pim);
       
       float cf = 3.0 * i / fs;

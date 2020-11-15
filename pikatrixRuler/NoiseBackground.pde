@@ -1,8 +1,18 @@
 class NoiseBackground {
   color[] cArr = new color[13];
-  
+  PImage imgBkgd;
  NoiseBackground() {
    setDefaultColors();
+    imgBkgd = createImage(width, height, ARGB);
+    imgBkgd.loadPixels();
+  
+    for (int i = 0; i < imgBkgd.pixels.length; i++) {
+        if (random(1) > 0.96) {
+          imgBkgd.pixels[i] = cArr[floor(random(0, cArr.length -1))];
+        }
+    } 
+    imgBkgd.updatePixels();
+    
  }
  
  NoiseBackground(PImage bimg) {
@@ -19,6 +29,10 @@ void draw() {
       }
   } 
   imgBkgd.updatePixels();
+  image(imgBkgd, 0, 0);
+}
+
+void drawOnce() {
   image(imgBkgd, 0, 0);
 }
 

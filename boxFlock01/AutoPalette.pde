@@ -17,7 +17,10 @@ class AutoPalette{
  AutoPalette(){
    d1 = 0.0;
    d2 = 0.3;
-   d3 = 0.6;   
+   d3 = 0.6;
+   d1 = random(1);
+   d2 = random(1);
+   d3 = random(1);
  }
  
  AutoPalette(float r){
@@ -49,6 +52,8 @@ class AutoPalette{
  }
  
  color getColor(float t0) {
+  t0 = t0 - floor(t0);
+  
   colorMode(HSB,1.0);
   float tnom = t0;   // between 0.0 and 1.0
 
@@ -64,15 +69,15 @@ class AutoPalette{
  }
  
  color getColor50(float t0){
+   t0 = t0 - floor(t0);
    colorMode(HSB,1.0);
    color c = getColor(t0);  
    return color(hue(c), saturation(c), brightness(c), 0.7);
  }
  
  void test() { 
-   AutoPalette autoPal = new AutoPalette();
    for (int x=0; x < width; x++) {
-   stroke(autoPal.getColor(1.0*x/width));
+   stroke(this.getColor(1.0*x/width));
    line(x,0.6*height,x, 0.8*height);
    }  
  }

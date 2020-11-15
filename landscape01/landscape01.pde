@@ -43,9 +43,10 @@ void draw() {
   translate(0, 0, -3);
   mtn3.draw(150);
   popMatrix();
+  /*
   
   croller.draw(floor(hy));
-  
+*/  
   hy = 0.6*height + hbob.getBob() - 0.1 * height *cos(0.0001*frameCount);
 
 //  saveFrame();

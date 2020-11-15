@@ -5,9 +5,24 @@ class NoiseBox {
   
   float loadFactor = 0.3;
   float pixelLoad = 0.1;
-  
+  PImage imgBkgd;
+  float nx, ny, nw, nh;
   NoiseBox() {
     setDefaultColors();
+      imgBkgd = getNoiseBox();
+      imgBkgd.loadPixels();
+
+      for (int i = 0; i < imgBkgd.pixels.length; i++) {
+        if (random(1) < jitter(pixelLoad, 0.2)) {
+          imgBkgd.pixels[i] = cArr[floor(random(0, cArr.length -1))];
+        }
+      } 
+      imgBkgd.updatePixels();
+      nx = jitter(0.2 * width,200);
+      ny = jitter(0.2 * height, 200);
+      nw = jitter(0.5 * width,400);
+      nh = jitter(0.5 * height, 400);
+    
   }
   
   void drawNbox() {
@@ -17,6 +32,13 @@ class NoiseBox {
     }
     
     moveNoise();
+    
+  }
+
+  void drawNboxOnce() {
+    
+      image(imgBkgd, nx, ny, nw, nh);
+
     
   }
   

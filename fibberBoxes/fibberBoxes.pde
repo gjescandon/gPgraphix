@@ -7,6 +7,7 @@ AutoPalette apal, apal2;
 color bc;
 float h0, w0;
 float tFib;
+boolean saveFrame = false;
 
 void setup() {
   size(720,720, P3D);
@@ -52,12 +53,13 @@ void draw() {
 
   translate(w0-50*sin(0.01*yBob.getBob()), h0-50*cos(0.01*yBob.getBob()), 0);
   pushMatrix();
-  rotateY(0.1*(0.01*frameCount));
+  //rotateY(0.1*(0.01*frameCount));
   fill(apal.getColor50(0.005*zBob.getBobTail(1)));
   box(zBob.getBob());
   for(int i = 0; i < 21; i++) {
     pushMatrix();
-    translate(bw*cos(i*tFib+ 0.005*zBob.getBobTail(i*10)), bw*sin(i*tFib+ 0.005*zBob.getBobTail(i*10)), 0-8*i);
+    //translate(bw*cos(i*tFib+ 0.005*zBob.getBobTail(i*10)), bw*sin(i*tFib+ 0.005*zBob.getBobTail(i*10)), 0-8*i);
+    translate(bw*cos(i*tFib), bw*sin(i*tFib), 0-8*i);
     noStroke();
     fill(apal.getColor50(0.005*zBob.getBobTail(i*50)));
     box(zBob.getBobTail(1+i));
@@ -65,6 +67,6 @@ void draw() {
   }
   popMatrix();
   
-  //saveFrame();
+  if (saveFrame) saveFrame();
   println(frameCount);
 }

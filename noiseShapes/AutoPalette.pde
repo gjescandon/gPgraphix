@@ -13,45 +13,46 @@ class AutoPalette{
   float d2 = 0.3;
   float d3 = 0.6;
   float factor = 1.0;
+  NoizeBob cbob;
   
  AutoPalette(){
    d1 = 0.0;
    d2 = 0.3;
-   d3 = 0.6;   
+   d3 = 0.6;  
+   cbob = new NoizeBob();
  }
  
  AutoPalette(float r){
    d1 = random(1);
-   if (r < 0.3) {
      d2 = random(1);
-   }
-   if (r < 0.7) {
      d3 = random(1);
-   }
+     a1 = r;
+     b1 = 0.2;
+     b2 = 0.2;
+   cbob = new NoizeBob(1.0, 0.001, 0.6);
+
  }
  AutoPalette(float r, float s){
    d1 = random(1);
-   if (r < 0.3) {
      d2 = random(1);
-   }
-   if (r < 0.7) {
      d3 = random(1);
-   }
+     a1 = r;
+     b1 = 0.2;
+     b2 = 0.2;
+
    
    // power up
-   c1 *= 1.+floor(random(1))%3;
-   if (s < 0.3) {
-     c2 *= 1.+ floor(random(1))%3;
-   }
-   if (s < 0.7) {
-     c3 *= 1.+floor(random(1))%3;
-   }
+   c1 *= 1.+floor(s + random(1));
+   c2 *= 1.+ floor(s + random(1));
+     c3 *= 1.+floor(s+ random(1));
+
+   cbob = new NoizeBob(0.2, 0.001, 0.6);
+
  }
  
  color getColor(float t0) {
-   t0 = t0 - floor(t0);
   colorMode(HSB,1.0);
-  float tnom = t0;   // between 0.0 and 1.0
+  float tnom = t0 - floor(t0);   // between 0.0 and 1.0
 
   color c;
   float b1f = b1 * cos(TWO_PI*(c1*tnom+d1));
@@ -65,16 +66,15 @@ class AutoPalette{
  }
  
  color getColor50(float t0){
-   t0 = t0 - floor(t0);
-   
    colorMode(HSB,1.0);
    color c = getColor(t0);  
-   return color(hue(c), saturation(c), brightness(c), 0.7);
+   return color(hue(c), saturation(c), brightness(c), 0.6 + cbob.getBob());
  }
  
  void test() { 
+   AutoPalette autoPal = new AutoPalette();
    for (int x=0; x < width; x++) {
-   stroke(this.getColor(1.0*x/width));
+   stroke(autoPal.getColor(1.0*x/width));
    line(x,0.6*height,x, 0.8*height);
    }  
  }
