@@ -36,7 +36,7 @@ class FlockBox{
     flock = new PShape[3];
     for (int i = 0; i < fs; i++) {
       PShape fb = createShape();
-      fb.beginShape();
+      fb.beginShape(QUADS);
       fb.setStroke(color(0.0));
       fb.setFill(color(0.3));
       
@@ -78,7 +78,7 @@ class FlockBox{
       fb.vertex( 10,  10,  10);
     
       
-      fb.endShape();
+      fb.endShape(CLOSE);
       flock[i] = fb;
     }
     
