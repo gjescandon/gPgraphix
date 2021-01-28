@@ -6,7 +6,7 @@ class NoizeBob {
   NoizeBob() {
     float factor = 30.0;
     float falloff = 0.5;
-    float inc = 1.0;
+    float inc = random(1.0);
     init(factor, inc, falloff);
   }
   
@@ -16,7 +16,7 @@ class NoizeBob {
   
   void init(float factor_, float inc_, float falloff_) {
     bob = 0.0;
-    bobInc = inc_ * random(1);
+    bobInc = inc_;
     factor = factor_;
     nload = 5;
     falloff = falloff_;        
@@ -43,18 +43,22 @@ class NoizeBob_2D {
   NoizeBob_2D() {
     float factor = 30.0;
     float falloff = 0.5;
-    float inc = 0.1;
-    init(factor, inc, falloff);
+    float inc = random(1);
+    init(factor, inc, inc, falloff);
   }
   
   NoizeBob_2D(float factor_, float inc_, float falloff_) {
-    init(factor_, inc_, falloff_);
+    init(factor_, inc_, inc_ * random(1), falloff_);
   }
   
-  void init(float factor_, float inc_, float falloff_) {
+  NoizeBob_2D(float factor_, float inc1_, float inc2_, float falloff_) {
+    init(factor_, inc1_, inc2_, falloff_);
+  }
+  
+  void init(float factor_, float inc1_, float inc2_, float falloff_) {
     bob1 = bob2 = 0.0;
-    bob1Inc = inc_ * random(1);
-    bob2Inc = inc_ * random(1);
+    bob1Inc = inc1_;
+    bob2Inc = inc2_;
     factor = factor_;
     nload = 5;
     falloff = falloff_;        

@@ -11,7 +11,7 @@ PImage img;
 BobbleBoxPistil bbPistil;
 color chromaKey;
 //****
-boolean saveFrame = true;
+boolean saveFrame = false;
 //****
 
 void setup() {

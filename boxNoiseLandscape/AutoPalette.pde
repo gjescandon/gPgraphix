@@ -1,11 +1,11 @@
 class AutoPalette{
 //https://www.iquilezles.org/www/articles/palettes/palettes.htm  
-  float a1 = 0.6; // hue
-  float a2 = 0.5;  // sat
-  float a3 = 0.7;  // bright
+  float a1 = 0.6; // hue : center
+  float a2 = 0.5;  // sat : center
+  float a3 = 0.6;  // bright : center
   float b1 = 0.4;
-  float b2 = 0.5;
-  float b3 = 0.1;
+  float b2 = 0.2;
+  float b3 = 0.2;
   float c1 = 1.0;
   float c2 = 1.0;
   float c3 = 1.0;

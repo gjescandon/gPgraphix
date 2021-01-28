@@ -15,7 +15,7 @@ class NoizeBob {
   }
   
   void init(float factor_, float inc_, float falloff_) {
-    bob = 0.0;
+    bob = 1.0*floor(random(100));
     bobInc = inc_;
     factor = factor_;
     nload = 5;
