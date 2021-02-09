@@ -10,6 +10,6 @@ void setup() {
 
 void draw() {
   colorMode(HSB,1.0);
-  background(0.9);
+  background(0.,100.,100.);
   flock.drawSpiro();
 }
