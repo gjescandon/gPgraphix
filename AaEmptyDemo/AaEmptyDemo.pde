@@ -1,11 +1,10 @@
 PImage nuImg;
-FlockBox flock;
-Zag zag;
+
 void setup() {
   size(1280,720, P3D);
-  nuImg = loadImage("jmor01/forestStream_1280w.jpg");
-  nuImg = loadImage("forestStream_1280w.jpg");
-  zag = new Zag();
+  nuImg = loadImage("whispers01.jpg");
+  
+  
   background(24,24,0);
 }
 
