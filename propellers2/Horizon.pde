@@ -6,7 +6,7 @@ class Horizon{
  int octaveCount;
  float noiseLevel;
  float ydrift, driftInc;
- float thetaOff;
+ float thetaOff, tInc;
  AutoPalette apal;
  NoizeBob cbob, tbob;
  
@@ -32,6 +32,7 @@ class Horizon{
      driftInc = - driftInc;
    }
    thetaOff = thetaOff_;
+   tInc = ninc_;
    
  }
  
@@ -47,19 +48,20 @@ class Horizon{
    //translate(xnPropOff * 0.5 * width, ynPropOff * 0.5* height);
    translate((0.5 * width)+(0.4*width*xnPropOff - 0.2*width), (0.5* height)+(0.4*height*ynPropOff - 0.2*height));
    pushMatrix();
-   rotate(thetaOff + tbob.getBob());
+   //rotateZ(thetaOff + tbob.getBob());
+   rotate(thetaOff);
    pushMatrix();
    beginShape();
    myFill = getMyColor();
    myStroke = getMyColor();
-   for (int i=0; i<  width; i++) {
-     float y = (ynot + cos(yoff / 10) * map(noise(xoff, yoff), 0, 1, 0, yMax)) * 2 * i / width;
+   for (int i=0; i<  1.3*width; i++) {
+     float y = ynot + (map(0.3+noise(xoff, yoff), 0, 1.3, 13, yMax)) * 1 * i / width;
      float x = i;
      vertex(x, y);
      xoff += xinc;
    }
-   for (int i=  width; i>= 0; i--) {
-     float y = (ynot - cos(yoff / 10) * map(noise(xoff, yoff), 0, 1, 0, yMax)) * 2 * i / width;; 
+   for (int i=  floor(1.3*width); i>= 0; i--) {
+     float y = ynot - (map(0.3+noise(xoff, yoff), 0, 1.3, 13, yMax)) * 1 * i / width;; 
      float x = i;
      vertex(x, y);
      xoff -= xinc;
@@ -69,6 +71,7 @@ class Horizon{
    popMatrix();
    popMatrix();
    yoff += yinc;
+   thetaOff += tInc + 0.003*tbob.getBob();
   }
   
   color getMyColor() {

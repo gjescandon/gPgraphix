@@ -30,7 +30,7 @@ void setup() {
 
 void draw() {
   colorMode(HSB,1.0);
-  background(0.9,1.,1.);
+  background(0.67,.35,0.97);
   
   
   //drawBackground();

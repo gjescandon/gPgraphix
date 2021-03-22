@@ -13,7 +13,7 @@ void setup() {
 
 void draw() {
   colorMode(HSB,1.0);
-  directionalLight(1.0,0,1., 0.001*sin(3.0*dbob.getBob()), 0.001*cos(3.0*dbob.getBobTail(10)),0);
+  directionalLight(1.0,0,1., 0.01*sin(3.0*dbob.getBob()), 0.01*cos(3.0*dbob.getBobTail(10)),-1);
   //background(0.3);
   //image(img,0,0);
   pizer.draw();

@@ -32,6 +32,7 @@ class NoizeBob {
    noiseDetail(nload, falloff);
    return factor * noise(bob + bobInc * inc_);
   }  
+ 
 }
 
 class NoizeBob_2D {

@@ -1,7 +1,7 @@
 PImage nuImg;
 
-NoizeBob zBob, cbob;
-NoizeBob_2D yBob;
+NoizeBob zBob, xbob, cbob;
+NoizeBob yBob;
 QuilezFunctions qeq;
 AutoPalette apal, apal2;
 color bc;
@@ -17,8 +17,9 @@ void setup() {
   
   EmptyTemplate mt = new EmptyTemplate();
   nuImg = mt.getEmpty();
-  zBob = new NoizeBob(200., 0.006, 0.7);
-  yBob = new NoizeBob_2D(10., 0.003, 0.3);
+  zBob = new NoizeBob(200., 0.0006, 0.3);
+  yBob = new NoizeBob(400., 0.0003, 0.3);
+  xbob = new NoizeBob(800., 0.000003, 0.3);
   cbob = new NoizeBob(100., 0.00003, 0.3);
   apal = new AutoPalette(random(1));
   apal2 = new AutoPalette(random(1));
@@ -34,10 +35,20 @@ void setup() {
 
 void draw() {
   colorMode(HSB,1.0);
-  background(0.9);
-  image(bluz.getImageBob(),0,0,width,height);
-  beye.draw();
+  background(0.2);
+  //directionalLight(1.,0.,1.,0.5*sin(0.01*frameCount),0.,-1);
   
+  pushMatrix();
+  translate(0,0, 0- 2*zBob.getBob());
+  image(bluz.getImageBob(),0,0,width,height);
+
+  popMatrix();
+  pushMatrix();
+  //translate(xbob.getBob(), yBob.getBob(), 0 - zBob.getBob());
+  translate(xbob.getBob(), yBob.getBob(), 0- zBob.getBob());
+
+  beye.draw();
+  popMatrix();
   
   if (saveFrame) saveFrame();
   println(frameCount);

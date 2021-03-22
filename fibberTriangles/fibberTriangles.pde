@@ -15,7 +15,7 @@ void draw() {
  background(color(bkHue,100,100));
 // directionalLight(0,0,100, 0.0, 0.0, 1.0 * sin(lzBob.getBob()));
 //  directionalLight(0,0,100, 0.0, lzBob.getBob(), lzBob.getBob());
- 
+
  tc1.drawTriangles();
 }
 

@@ -8,7 +8,7 @@ class ColorBoxBuilder {
   
   ColorBoxBuilder() {
     apal = new AutoPalette();
-    cbob = new NoizeBob(0.3,0.001,0.6);
+    cbob = new NoizeBob(0.3,0.00001,0.6);
 
     cbox = mt.getEmpty();
     cbox.loadPixels();
