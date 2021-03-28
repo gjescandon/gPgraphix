@@ -336,7 +336,7 @@ class ColorSortImg {
       imgFalls.pixels[i] = imgt.pixels[i];
     } 
    imgFalls.updatePixels();
-   println(brightnessFactor_Splash);
+   //println(brightnessFactor_Splash);
    if (brightnessFactor_Splash < 300) {
      brightnessFactor_Splash += bfInc;
    }

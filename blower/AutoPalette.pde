@@ -5,7 +5,7 @@ class AutoPalette{
   float a3 = 0.5;  // bright
   float b1 = 0.4;
   float b2 = 0.5;
-  float b3 = 0.3;
+  float b3 = 0.5;
   float c1 = 1.0;
   float c2 = 1.0;
   float c3 = 1.0;

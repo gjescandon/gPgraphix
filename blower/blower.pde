@@ -1,37 +1,39 @@
 PImage img, img2;
+AutoPalette apal, apal2;
+NoizeBob cb, cb2, bb;
 
 void setup() {
  size(1280, 720);
- frameRate(30);
-  background(16);
-  img = loadImage("djivanMask.jpg");
-  img.loadPixels();
-  img2 = loadImage("gselfie01.JPG");
-  img2.loadPixels();
+ colorMode(HSB,1.);
+ background(0.);
+ 
+ apal = new AutoPalette();
+ apal2 = new AutoPalette();
+ 
+ cb = new NoizeBob(1.0, 0.01, 0.5);
+ cb2 = new NoizeBob(1.0, 0.01, 0.5);
+ bb = new NoizeBob(1.0, 0.01, 0.5);
 }
 
 void draw() {
+  
  boolean useFader = false;
  boolean blowAway = false;
- /*
- if (frameCount > 80) {
-   useFader = true;
+ 
+ 
+
    drawBlock(1010, useFader, blowAway); 
- }
-   useFader = false;
-  
- if (frameCount > 20) {
-   drawBlock(50, useFader, blowAway); 
+ if (bb.getBob() > 0.6) {
+   blowAway = true;
  }
 
- blowAway = true;
- if (frameCount > 30) {
+   
+   drawBlock(50, useFader, blowAway); 
+
+blowAway = false;
+
    drawBlock(370, useFader, blowAway); 
- }
- if (frameCount > 50) {
    drawBlock(690, useFader, blowAway); 
- }
-*/   drawBlock(50, useFader, blowAway); 
 
 }
 
@@ -43,7 +45,7 @@ void drawBlock(float x1, boolean useFader, boolean blowAway) {
  float h = 620;
  float alpha, alpha0;
  alpha = alpha0 = 128.0;
- color myColor = getMyColor2();
+ color myColor = apal2.getColor(cb2.getBob());
  int fcMin = 200;
  float rh, rh0, rw, rw0;
  rh = rh0 = 2.0;
@@ -71,14 +73,14 @@ void drawBlock(float x1, boolean useFader, boolean blowAway) {
      rw = rw0 +  blow * random (1, 3);
      alpha = alpha0 - blow * 56; 
 
-     stroke(getMyColor());
+     stroke(apal.getColor(cb.getBob()));
      if (random(0, 1) > blow / 100) {
        printIt = true;
      }
    }
 
 if (useFader && frameCount > fcMin) {
-     myColor = getMyColor2();
+     myColor = apal2.getColor(cb2.getBob());
      float fade = map(frameCount, fcMin , 500, 0, 1);
 
      w += w * 3.0 * fade;
@@ -100,7 +102,7 @@ if (useFader && frameCount > fcMin) {
    //rw = rh + random(-2, 2);
 
    if(isBlowing) {
-    stroke(getMyColor2());
+    stroke(apal2.getColor(cb2.getBob()));
      float blow = map(frameCount, fcMin , 500, 0, 100);
     x = x + random(0, blow);
     if(random(0,1) > 0.999) {
@@ -111,7 +113,7 @@ if (useFader && frameCount > fcMin) {
     if(random(0,1) > 0.999) {
       continue;
     }
-     myColor = getMyColor2();
+     myColor = apal2.getColor(cb2.getBob());
      float fade = map(frameCount, fcMin , 500, 0, 1);
      x = x - (fade * w);
      println(frameCount + " :: " + fade  + " :: " + x );
@@ -133,15 +135,5 @@ if (useFader && frameCount > fcMin) {
      ellipse(x, y, rh, rw);
    }
  }
-  
-}
-
-
-color getMyColor() {
- return img.pixels[floor(random(5, img.pixels.length - 5))]; 
-  
-}
-color getMyColor2() {
- return img2.pixels[floor(random(5, img2.pixels.length - 5))]; 
   
 }

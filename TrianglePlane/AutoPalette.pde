@@ -1,11 +1,11 @@
 class AutoPalette{
 //https://www.iquilezles.org/www/articles/palettes/palettes.htm  
-  float a1 = 0.6; // hue
+  float a1 = 0.5; // hue
   float a2 = 0.5;  // sat
-  float a3 = 0.5;  // bright
-  float b1 = 0.4;
+  float a3 = 0.8;  // bright
+  float b1 = 0.5;
   float b2 = 0.5;
-  float b3 = 0.3;
+  float b3 = 0.2;
   float c1 = 1.0;
   float c2 = 1.0;
   float c3 = 1.0;
@@ -15,9 +15,12 @@ class AutoPalette{
   float factor = 1.0;
   
  AutoPalette(){
-   d1 = 0.0;
-   d2 = 0.3;
-   d3 = 0.6;   
+   c1 = random(2);
+   c2 = random(2);
+   c3 = random(2);  
+   d1 = random(1);
+   d2 = random(1);
+   d3 = random(1);  
  }
  
  AutoPalette(float r){
@@ -84,10 +87,13 @@ class AutoPalette{
   color c;
   float b1f = b1 * cos(TWO_PI*(c1*tnom+d1));
   float h1 = factor * (a1 + b1f);
+  h1 -= floor(h1);
   float b2f = b2 * cos(TWO_PI*(c2*tnom+d2));
   float s2 = factor * (a2 + b2f);
+  s2 -= floor(s2);
   float b3f = + b3 * cos(TWO_PI*(c3*tnom+d3));
   float b3 = factor * (a3 + b3f);
+  b3 -= floor(b3);
   c = color(h1,s2,b3);
   return c;   
  }

@@ -176,6 +176,7 @@ void drawTexturedCube(PImage tex) {
 
    
    tex = et.getEmpty(w0, h0); 
+   
    tex.loadPixels();
    for ( y=0; y< h0; y++) {
      int yy = y + yImgOff;

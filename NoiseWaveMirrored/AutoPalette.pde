@@ -3,7 +3,7 @@ class AutoPalette{
   float a1 = 0.6; // hue
   float a2 = 0.5;  // sat
   float a3 = 0.5;  // bright
-  float b1 = 0.4;
+  float b1 = 0.1;
   float b2 = 0.5;
   float b3 = 0.3;
   float c1 = 1.0;
@@ -49,13 +49,17 @@ class AutoPalette{
      d3 = random(1);
    
    // power up
-   c1 *= 1.+random(2);
-     c2 *= 1.+ random(2);
-     c3 *= 1.+ random(2);
+   //c1 *= 1.+random(2);
+     //c2 *= 1.+ random(2);
+     //c3 *= 1.+ random(2);
 
      a1 = hue;
      a2 = sat;
      a3 = bril;
+     
+     b1 = 0.2;
+     b2 = 0.2;
+     b3 = 0.2;
 
  }
 
@@ -79,7 +83,7 @@ class AutoPalette{
  
  color getColor(float t0) {
   colorMode(HSB,1.0);
-  float tnom = t0-floor(t0);   // between 0.0 and 1.0
+  float tnom = abs(t0-floor(t0));   // between 0.0 and 1.0
 
   color c;
   float b1f = b1 * cos(TWO_PI*(c1*tnom+d1));
