@@ -7,10 +7,12 @@ class NoiseCircle {
     color currentColor;
     boolean isGrowing = false;
     boolean isBiggEnough = false;
-    float rinc = 2.0;
+    float rinc = 0.2;
+    float[] rr;
     float rMin = 20.0;
     AutoPalette apal;
     NoizeBob cbob,  tbob;
+    int iMax;
     
   NoiseCircle(float defaultRadius) {
     rOff = defaultRadius;
@@ -24,21 +26,40 @@ class NoiseCircle {
   
 
   NoiseCircle() {
-    rOff = 100;
+    rOff = height;
     ninc = 0.01 * random(1, 6);  
     apal = new AutoPalette(0.5);
-    cbob = new NoizeBob(1.0, 0.001*random(1),0.5);
-    tbob = new NoizeBob(1.0, 0.001*random(1),0.5);
+    cbob = new NoizeBob(1.0, 0.001,0.5);
+    tbob = new NoizeBob(1.0, 0.001,0.5);
     currentColor = getColor();
+    iMax = 23;
+    rr = new float[iMax];
+    for (int i=0; i < iMax; i++) {
+      rr[i] = rOff + i * 50;
+    }
 }
 
 
-  void drawNoiseCircle() {
-    float xOff = (0.5 * width)+(0.4*width*xnPropOff - 0.2*width);
-    float yOff = (0.5* height)+(0.4*height*ynPropOff - 0.2*height);
+  void drawVortex() {
+    
+    for (int i = 0; i < iMax; i++) {
+      drawCircle(rr[i]);
+      rr[i] -= rinc;
+      if (rr[i] <= 0.) rr[i] = rOff;
+
+    }
+    
+    //drawCircle(rr);
+    
+  }
+  
+  
+  void drawCircle(float rIn) {
+    float xOff = (0.5 * width);
+    float yOff = (0.5* height);
     
     beginShape();
-    fill(getColor());
+    noFill();
     strokeWeight(1+4.*cbob.getBob());
     stroke(apal.getColor(cbob.getBobTail(100),0.8));
     
@@ -47,13 +68,15 @@ class NoiseCircle {
       float nrOff = 0.;
       nrOff = tbob.getBobTail(floor(10*theta));
       
-      float r = rOff + (10 * sin(8*theta+200*nrOff)) + (50 * nrOff);
-      
+      float r = rIn + (10 * sin(8*theta+200*nrOff)) + (50 * nrOff);
+      r = rIn + (10 * sin(8*theta));
       float lastX = xOff + r*sin(theta + thetaOff);
       float lastY = yOff + r*cos(theta + thetaOff);
       vertex(lastX, lastY);
     }
     endShape(CLOSE);
+    
+    
 
 }
   
