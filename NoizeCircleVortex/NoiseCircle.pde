@@ -7,7 +7,7 @@ class NoiseCircle {
     color currentColor;
     boolean isGrowing = false;
     boolean isBiggEnough = false;
-    float rinc = 0.6;
+    float rinc = 0.3;
     float[] rr;
     float rMin = 20.0;
     AutoPalette apal;

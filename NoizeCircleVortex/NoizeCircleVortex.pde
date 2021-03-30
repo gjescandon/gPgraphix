@@ -28,6 +28,7 @@ void draw() {
  nc.drawVortex();
 
  
+ println(frameCount);
  saveFrame();
 
 }
