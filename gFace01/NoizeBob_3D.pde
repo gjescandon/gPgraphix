@@ -50,7 +50,7 @@ class NoizeBob_3D {
   
   void incZ() {
    zoff += zinc;
-   //println(zoff);
+   println(zoff);
   }
 
   float getBob(float offset) {

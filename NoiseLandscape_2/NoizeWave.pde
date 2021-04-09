@@ -20,7 +20,7 @@ NoizeBob nb;
   NoizeWave() {
   
   apal = new AutoPalette(0.6);
-  apal2 = new AutoPalette(0.4, 0.5, 0.2);
+  apal2 = new AutoPalette(0.4, 0.6, 0.3);
   nb = new NoizeBob(1.0, 0.000001, 0.5);
   c0 = 0.;
   cinc = 0.001;
@@ -57,10 +57,10 @@ void drawGNoiseWave03() {
   float yMin = 0.5*height;
   
   stroke(apal.getColor(c0));
-  fill(apal.getColorDark(c0 + 0.5));
+  fill(apal.getColorDark(c0 + 0.65));
   // We are going to draw a polygon out of the wave points
   
-  noiseDetail(4,0.5);
+  noiseDetail(5,0.26);
   yoff03 = drawWave(yMin, yMax, yoff03, yinc03, xinc);
 
 }
@@ -73,7 +73,7 @@ void drawGNoiseWave02() {
   fill(apal.getColorDark(c0 + + 0.25 + 0.5));
   // We are going to draw a polygon out of the wave points
   
-  noiseDetail(4,0.7);
+  noiseDetail(5,0.23);
   yoff02 = drawWave(yMin, yMax, yoff02, yinc02, xinc);
 
 }
@@ -85,7 +85,7 @@ void drawGNoiseWave01() {
   fill(apal.getColorDark(c0 + + 0.5 + 0.5));
   // We are going to draw a polygon out of the wave points
   
-  noiseDetail(4,0.75);
+  noiseDetail(5,0.2);
   yoff01 = drawWave(yMin, yMax, yoff01, yinc01, xinc);
 
 }
@@ -97,7 +97,7 @@ void drawDemoNoiseWave() {
   fill(apal.getColor(c0 + + 0.75 + 0.5));
   // We are going to draw a polygon out of the wave points
   
-  noiseDetail(4,0.5);  // noiseDetail(octavesCount, falloff)
+  noiseDetail(5,0.3);  // noiseDetail(octavesCount, falloff)
   yoff04 = drawWave(yMin, yMax, yoff04, yinc04, xinc);
 }
 
@@ -149,18 +149,31 @@ void setGradient() {
 
   //println(c0);
   int ymin = 0-height/4;
-  int ymax = height/2;
+  int ymax = floor(1.2*height);
   
   float dmin = 1.;
   float dmax = 0.;
   float ydelta = ymax - ymin;
+  pushMatrix();
+  translate(0,0,-1);
   for (int y = 0; y <= ydelta; y++) {
     float y0 = y/ydelta;
      stroke(apal2.getColor(0.5 + 0.48*sin(c0 + y0)));
-     line(0-0.2*width,y+ymin,1.2*width,y+ymin); 
+     //fill(apal2.getColor(0.5 + 0.48*sin(c0 + y0)));
+     noFill();
+     //line(0-0.2*width,y+ymin,1.2*width,y+ymin);
+     float x2 =0-0.2*width;
+     float y2 = y+ymin;
+     float x3 =1.2*width;
+     float y3 = y2;
+     curve(x2 + 100,y2+width,x2,y2,x3,y3,x3-100,y3+width);
      if (y0 < dmin) dmin = y0;
      if (y0 > dmax) dmax = y0;
   }
+  popMatrix();
+  fill(0.1);
+  stroke(0.1);
+  rect(0-300,0.5*height,width+500,0.7*height);
   c0 += cinc;
   //c0 -= floor(c0);
  //println ("c0 " + c0);

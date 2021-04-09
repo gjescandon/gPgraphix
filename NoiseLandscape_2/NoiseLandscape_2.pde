@@ -1,15 +1,20 @@
 PImage nuImg;
 FlockBox flock1,flock2,flock3;
-NoizeBob lbob;
+NoizeBob lbob, rbob;
 NoizeWave nwave;
 QuilezFunctions qf;
+WordFlyers words;
+LlamaWalk ll;
+
 void setup() {
   size(1280,720, P3D);
   
   flock1 = new FlockBox(0.7,0.5);
-
+  words = new WordFlyers();
+  ll = new LlamaWalk();
   
   lbob = new NoizeBob(1.,0.007,0.5);
+  rbob = new NoizeBob(1.,0.001,0.2);
   qf = new QuilezFunctions();
   nwave = new NoizeWave();
 }
@@ -21,7 +26,10 @@ void draw() {
   float tx = HALF_PI*lbob.getBob();
   //println(tx);
   //nwave.setGradient();
-  
+  float rot = 0.1;
+  scale(1.+rot);
+  rotateZ(0-rot*rbob.getBob());
+  translate(0-rot*width*rbob.getBobTail(1),0,100*rbob.getBobTail(10));
   pushMatrix();
   translate(0,0,-200);
   nwave.setGradient();
@@ -47,7 +55,9 @@ void draw() {
   
   popMatrix();
   nwave.draw();
-
+  words.draw();
+  
+  if (frameCount > 2000) ll.draw();
   saveFrame();
   
   println(frameCount);

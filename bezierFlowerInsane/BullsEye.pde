@@ -2,9 +2,18 @@ class BullsEye {
   
   AutoPalette apal;
   BezierFlower bf;
+  NoizeBob cbob;
+  float fc1, fc2 ,fc3, fc4, fc5;
+  
   BullsEye() {
     apal = new AutoPalette();
     bf = new BezierFlower();
+    cbob = new NoizeBob(1.0, 0.001, 0.3);
+    fc1 = random(1);
+    fc2 = random(1);
+    fc3 = random(1);
+    fc4 = random(1);
+    fc5 = random(1);
   }
   
   void draw() {
@@ -21,7 +30,7 @@ class BullsEye {
 
 class BezierFlower {
  float diameter;
- float fc1, fc2, fc3, fc4;
+ float fc1, fc2, fc3, fc4, fc5;
  AutoPalette apal;
   NoizeBob zbob, xbob, ybob;
  
@@ -31,8 +40,9 @@ class BezierFlower {
   fc2 = random(1);
   fc3 = random(1);
   fc4 = random(1); 
+  fc5 = random(1); 
   apal = new AutoPalette(0.46);
-  zbob = new NoizeBob(2.0, 0.006, 0.4);
+  zbob = new NoizeBob(2.0, 0.0006, 0.4);
   xbob = new NoizeBob(20.0, 0.03, 0.4);
   ybob = new NoizeBob(20.0, 0.03, 0.4);
  }
@@ -68,27 +78,27 @@ class BezierFlower {
         shape(bp,xbob.getBob(),ybob.getBob());
 
         translate(0,0,1);
-        bp.setFill(apal.getColor(fc2 + 0.0008*frameCount));
-        shape(bp,xbob.getBobTail(10),ybob.getBobTail(10), 2.616*diameter, 2.616 * diameter);
-    
+        bp.setFill(apal.getColor((10*fc2)+cbob.getBobTail(1)));
+        shape(bp,0,0, 2.616*diameter, 2.616 * diameter);
+        
         translate(0,0,1);
-        bp.setFill(apal.getColor(fc3 + 0.0007*frameCount));
-        shape(bp,xbob.getBobTail(20),ybob.getBobTail(20), 2.416*diameter, 2.416 * diameter);
+        bp.setFill(apal.getColor((10*fc3)+cbob.getBobTail(1)));
+        shape(bp,0,0, 2.416*diameter, 2.416 * diameter);
         
         translate(0,0,1);
         //bp.setFill(chromaKey);
-        bp.setFill(apal.getColor(fc4 + 0.0009*frameCount));
-        shape(bp,xbob.getBobTail(30),ybob.getBobTail(30), 2.016*diameter, 2.016 * diameter);
+        bp.setFill(apal.getColor((10*fc4)+cbob.getBobTail(1)));
+        shape(bp,0,0, 2.016*diameter, 2.016 * diameter);
 
         translate(0,0,1);
         //bp.setFill(chromaKey);
-        bp.setFill(apal.getColor(fc4 + 0.0007*frameCount));
-        shape(bp,xbob.getBobTail(30),ybob.getBobTail(30), 1.8*diameter, 1.8 * diameter);
+        bp.setFill(apal.getColor((10*fc5)+cbob.getBobTail(1)));
+        shape(bp,0,0, 1.016*diameter, 1.016 * diameter);
 
         translate(0,0,1);
         //bp.setFill(chromaKey);
-        bp.setFill(apal.getColor(fc4 + 0.0005*frameCount));
-        shape(bp,xbob.getBobTail(30),ybob.getBobTail(30), 0.9*diameter, 0.9 * diameter);
+        bp.setFill(apal.getColor((10*fc1)+cbob.getBobTail(1)));
+        shape(bp,0,0, .716*diameter, .716 * diameter);
 
        popMatrix();
   popMatrix();

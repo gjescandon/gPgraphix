@@ -64,14 +64,13 @@ class AutoPalette{
   float b3f = + b3 * cos(TWO_PI*(c3*tnom+d3));
   float b3 = constrain(factor * (a3 + b3f), 0.0, 1.0);
   c = color(h1,s2,b3);
-  c = color(h1,s2,b3);
   return c;   
  }
  
  color getColorDark(float t0) {
    
-   a3 = 0.2;
-   b3 = 0.2;
+   a3 = 0.3;
+   b3 = 0.1;
   colorMode(HSB,1.0);
   float tnom = t0 - floor(t0);   // between 0.0 and 1.0
 

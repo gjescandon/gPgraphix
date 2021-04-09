@@ -70,8 +70,8 @@ class AutoPalette{
  
  color getColorDark(float t0) {
    
-   a3 = 0.2;
-   b3 = 0.2;
+   a3 = 0.3;
+   b3 = 0.1;
   colorMode(HSB,1.0);
   float tnom = t0 - floor(t0);   // between 0.0 and 1.0
 

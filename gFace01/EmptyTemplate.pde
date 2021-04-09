@@ -15,8 +15,8 @@ class NoizeBob {
   }
   
   void init(float factor_, float inc_, float falloff_) {
-    bob = random(1);
-    bobInc = inc_;// * random(1);
+    bob = random(13);
+    bobInc = inc_ * random(1);
     factor = factor_;
     nload = 5;
     falloff = falloff_;        
@@ -32,6 +32,7 @@ class NoizeBob {
    noiseDetail(nload, falloff);
    return factor * noise(bob + bobInc * inc_);
   }  
+ 
 }
 
 class NoizeBob_2D {
@@ -52,7 +53,7 @@ class NoizeBob_2D {
   }
   
   void init(float factor_, float inc_, float falloff_) {
-    bob1 = bob2 = 0.0;
+    bob1 = bob2 = random(13);
     bob1Inc = inc_ * random(1);
     bob2Inc = inc_ * random(1);
     factor = factor_;
@@ -102,5 +103,6 @@ class EmptyTemplate {
     img.updatePixels();
        
     return img;
-  }}
+  }
+}
   

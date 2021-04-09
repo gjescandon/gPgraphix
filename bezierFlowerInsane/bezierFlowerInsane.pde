@@ -7,7 +7,7 @@ AutoPalette apal, apal2;
 color bc;
 float h0, w0;
 float tFib;
-boolean saveFrame = false;
+boolean saveFrame = true;
 ColorBoxBuilder bluz;
 BullsEye beye;
 
@@ -31,23 +31,25 @@ void setup() {
   
   bluz = new ColorBoxBuilder();
   beye = new BullsEye();
+  background(0.2);
 }
 
 void draw() {
   colorMode(HSB,1.0);
-  background(0.2);
-  //directionalLight(1.,0.,1.,0.5*sin(0.01*frameCount),0.,-1);
-  
+  directionalLight(1.,0.,1.,0.3*sin(xbob.getBob()),0.3*cos(xbob.getBobTail(1)),-1);
+  pushMatrix();
+
   pushMatrix();
   translate(0,0, 0- 2*zBob.getBob());
-  image(bluz.getImageBob(),0,0,width,height);
+  bluz.draw();
 
   popMatrix();
   pushMatrix();
   //translate(xbob.getBob(), yBob.getBob(), 0 - zBob.getBob());
-  translate(xbob.getBob(), yBob.getBob(), 0- zBob.getBob());
+  //translate(xbob.getBob(), yBob.getBob(), 0- zBob.getBob());
 
-  beye.draw();
+  //beye.draw();
+  popMatrix();
   popMatrix();
   
   if (saveFrame) saveFrame();

@@ -1,24 +1,33 @@
-class Boxzz {
+class BigBang {
   
   float index = 7;
-     float ll;
+  float ll;
   NoizeBob swbob, llbob, xbob, ybob;
- Boxzz() {
+  AutoPalette apal;
+  float c0, cinc;
+
+  BigBang() {
    llbob = new NoizeBob(1.0, 0.001, 0.5);
    swbob = new NoizeBob(1.0, 0.001, 0.5);
    xbob = new NoizeBob(100.0, 0.001, 0.5);
    ybob = new NoizeBob(100.0, 0.001, 0.5);
+   apal = new AutoPalette();
+   c0 = 0.;
+   cinc = 0.0008;
+
  }
  
- void draw() {
-   ll = width * 0.5 * llbob.getBob();
-   strokeWeight(100 * swbob.getBob());
-   stroke(1.);
-   fill(0.);
-   pushMatrix();
-   rotateZ(-0.001*frameCount);
-   drawBox();
-   popMatrix();
+ void draw(float rad) {
+   float ll = rad;
+   
+   for (int  i =0; i < ll; i++) {
+    strokeWeight(1+llbob.getBobTail(1));
+    stroke(apal.getColor(sin(c0 + i*cinc)));
+    circle(0,0,i);
+   }
+   noFill();
+   
+   c0 += cinc;
  }
  
  
