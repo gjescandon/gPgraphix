@@ -1,17 +1,19 @@
-
-FaceMaker fm;
+Boxzz bxz;
+JenDuMaker jd;
 QuilezFunctions qf;
 NoizeBob cb,zbob, xbob, ybob, swb;
+AutoPalette apal;
 int cnt;
 void setup() {
-  size(1280,720, P3D);
+  size(720,720, P3D);
   cnt = 3  ;
+  jd = new JenDuMaker();
+  apal  = new AutoPalette();
   // frameRate = 60 per sec default
-  fm = new FaceMaker();
-  
+  bxz = new Boxzz();
   qf = new QuilezFunctions();
   cb = new NoizeBob(1.0, 0.002, 0.5);
-  swb = new NoizeBob(1.0, 0.001, 0.9);
+  swb = new NoizeBob(1.0, 0.01, 0.9);
   zbob = new NoizeBob(1.0, 0.01, 0.3);
   xbob = new NoizeBob(1., 0.001, 0.3);
   ybob = new NoizeBob(1., 0.001, 0.3);
@@ -20,11 +22,18 @@ void setup() {
 
 void draw() {
   colorMode(HSB,1.0);
-  background(0.);
+  float offf = 100.;
+  pushMatrix();
+  translate(0,0,-50);
+  fill(0.);
+  rect(-offf,-offf,width+offf+offf,height+offf+offf);
+  fill(apal.getColorDark(sin(0.0001*frameCount)));
+  rect(0,0,width,height);
+  popMatrix();
+  directionalLight(1.,0.1,1.,0.3*sin(swb.getBob()),0.3*cos(swb.getBob()),-1);
+  //directionalLight(1.,0.1,1.,0.3*sin(0.01*frameCount),0.3*cos(0.01*frameCount),-1);
   
-  
-  fm.draw();
-  
+  jd.draw();
   
   //println(frameCount);
   //saveFrame();
