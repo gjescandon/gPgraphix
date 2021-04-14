@@ -6,7 +6,7 @@ JdUnit jd;
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
-  size(720,720, P3D);
+  size(1280,720, P3D);
   cnt = 3  ;
   // frameRate = 60 per sec default
   bxz = new Boxzz();
@@ -28,8 +28,8 @@ void draw() {
   
   jd.draw();
   
-  println(frameCount);
-  saveFrame();
+  //println(frameCount);
+  //saveFrame();
 } 
 
 
