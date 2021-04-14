@@ -1,5 +1,7 @@
 Boxzz bxz;
 QuilezFunctions qf;
+GeoFunctions gf;
+
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
@@ -8,35 +10,39 @@ void setup() {
   // frameRate = 60 per sec default
   bxz = new Boxzz();
   qf = new QuilezFunctions();
+  gf = new GeoFunctions();
+  
   cb = new NoizeBob(1.0, 0.002, 0.5);
   swb = new NoizeBob(1.0, 0.001, 0.9);
   zbob = new NoizeBob(1.0, 0.01, 0.3);
   xbob = new NoizeBob(1., 0.001, 0.3);
   ybob = new NoizeBob(1., 0.001, 0.3);
-  background(0.);
+  
+  colorMode(HSB,1.);
   }
 
 void draw() {
-  colorMode(HSB,1.0);
-  //background(0.);
-  translate(0.45*width + 0.1*width*xbob.getBob() , 0.45*height + 0.1*height*ybob.getBob());
-  pushMatrix();
-  scale(cb.getBob());
-  drawCircles();
-  popMatrix();
-  float t0 = 1.0 * TWO_PI / cnt;
-  float off = 0.5*height;
-  //cb.getBob();
   
-  rotateZ(sin(0.001*frameCount + zbob.getBob()));
-  for (int i = 0; i < cnt; i++) {
-    pushMatrix();
-    translate(off*sin(i*t0)+off*0.5*xbob.getBobTail(10+i*100),off*cos(i*t0)+ off*0.5*ybob.getBobTail(10+i*100));
-    scale(0.6);
-    bxz.draw();
-    popMatrix();
-  }
-  println(frameCount);
+  background(0.);
+  float a = 0.1 * width;
+  float b = 0.1 * height;
+  float c = 0.8 * width;
+  float d = 0.8 * height;
+  
+  fill(0.9);
+  rect(a, b, c ,d);
+  
+  GPoint gp1 = new GPoint(a,b);
+  GPoint gp2 = new GPoint(a+c, b+d);
+  float dd = gf.getLen(gp1, gp2);
+  
+  fill(0.7);
+  rect(a,b, dd - c, d);
+  
+  noFill();
+  rect(a,b, d, d);
+  rect(c+a-d,b, d, d);
+  
   //saveFrame();
 } 
 
