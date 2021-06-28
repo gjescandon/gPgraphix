@@ -7,6 +7,7 @@ class JdUnit {
  int[] jdoClock;
  int[] jdoStartPoint;
  int jdoSize = 13;
+
  QuilezFunctions qf;
  
    float x0  = 0.05*width;
@@ -29,22 +30,24 @@ class JdUnit {
 
   for (int i =0; i< jdoSize; i++) {
     
-    fill(apal.getColor((coff + 1.*i / jdoSize) * (1. + 0.5* sin(0.001* frameCount))));
     noStroke();
     pushMatrix();
     float ss = 1.;
     
-    if(i>0) {
+    //if(i>0) {
     float ss1 = qf.expSustainedImpulse(1.*(frameCount-jdoStartPoint[i]),50., 1.);
     float ss2 = qf.expStep(1.1*(frameCount-jdoStartPoint[i])/jdoClock[i], 40., 8. );
-    if (ss2 <= 0.05) {
+    //fill(jdo[i].getMask());
+    fill(1.);
+    if (ss2 <= 0.01) {
        jdo[i] = getJdo(floor(random(6)));
-       if (random(1) > 0.99) jdo[i] = defineTriangleByAspect(16.,9.);
-       jdoClock[i] = 1000 + floor(random(300));
+       
+       
+       jdoClock[i] = 1000 + floor(random(500));
        jdoStartPoint[i] = frameCount;
       }
     ss = ss1 * ss2;
-    }
+    //}
      switch(floor(jdo[i].getVals()[0])) {
     case 0: 
       //println("Alpha");  // Does not execute
@@ -105,11 +108,15 @@ class JdUnit {
    float b = y0;
    float c = wmax;
    float d = hmax;
-   jdo[0] = new Jdo(1,a,b,c,d);
-   
+   //jdo[0] = new Jdo(1,a,b,c,d);
+   //jdo[0] = defineTriangleByAspect(8.,6.);
+   jdo[0] = defineCircle(1.);
+         jdo[0] = defineRectByAspect(4.,6.);
+
    //possible triangle points : 16:9
-   if (random(1) > 0.6)
-     jdo[1] = defineTriangleByAspect(16.,9.);
+   //if (random(1) > 0.6)
+   jdo[1] = defineTriangleByAspect(8.,6.);
+         jdo[1] = defineRectByAspect(4.,6.);
 
    for (int i = 2; i < jdoSize; i++) {
      int sw = floor(10* random(1));
@@ -123,25 +130,33 @@ class JdUnit {
    Jdo jdoX = new Jdo(0);
      switch (index) {
        case 0:
-         jdoX = defineTriangleByAspect(8.,9.);
+         jdoX = defineTriangleByAspect(8.,6.);
+         jdoX = defineRectByAspect(8.,3.);
          break;
        case 1:
-         jdoX = defineTriangleByAspect(8.,6.);
+         jdoX = defineTriangleByAspect(4.,6.);
+         jdoX = defineRectByAspect(4.,6.);
          break;
        case 2:
-         jdoX = defineTriangleByAspect(4.,6.);
+         jdoX = defineTriangleByAspect(4.,3.);
+         jdoX = defineRectByAspect(4.,3.);
          break;
        case 3:
          jdoX = defineRectByAspect(4.,3.);
+         jdoX = defineRectByAspect(2.,3.);
          break;
        case 4:
-         jdoX = defineRectByAspect(4.,6.);
+         //jdoX = defineRectByAspect(2.,3.);
+         //jdoX = defineCircle(1);
+         jdoX = defineRectByAspect(2.,3.);
          break;
        case 5:
-         jdoX = defineCircle(7);
+         //jdoX = defineCircle(2);
+         jdoX = defineRectByAspect(2.,1.);
          break;
        case 6:
-         jdoX = defineCircle(3);
+         //jdoX = defineCircle(3);
+         jdoX = defineRectByAspect(2.,1.);
          break;
        default:
          break;
@@ -231,6 +246,7 @@ class Jdo {
   
  // JenDu object
  float[] val;
+ float mask;
 
    // val[0] : type
    // 1 = rect
@@ -245,6 +261,7 @@ class Jdo {
  Jdo(float type) {
    val = new float[10];
    val[0] = type; // expecting 0
+   mask = floor(random(2.)); // 0 or 1;
  }
  Jdo(float type, float x1, float y1, float x2, float y2) {
    val = new float[10];
@@ -253,6 +270,7 @@ class Jdo {
    val[2] = y1;
    val[3] = x2;
    val[4] = y2;
+   mask = floor(random(2.)); // 0 or 1;
 
  }
  Jdo(float type, float x1, float y1, float x2, float y2, float x3, float y3) {
@@ -264,6 +282,7 @@ class Jdo {
    val[4] = y2;
    val[5] = x3;
    val[6] = y3;
+   mask = floor(random(2.)); // 0 or 1;
  }
  Jdo(float type, float x1, float y1, float rad) {
    val = new float[10];
@@ -271,9 +290,14 @@ class Jdo {
    val[1] = x1;
    val[2] = y1;
    val[3] = rad;
+   mask = floor(random(2.)); // 0 or 1;
  }
  
  float[] getVals() {
    return val;
+ }
+ 
+ float getMask() {
+   return mask;
  }
 }

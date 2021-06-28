@@ -1,6 +1,6 @@
 class ImageBox02Collection {
 
-  int colsize = 8;
+  int colsize = 34;
 
   ImageBox02[] boxes = new ImageBox02[colsize];
 

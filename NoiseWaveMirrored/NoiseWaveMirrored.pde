@@ -40,8 +40,8 @@ void setup() {
 }
 
 void draw() {
-  background(51);
-  setGradient();
+  background(0);
+  //setGradient();
   
   pushMatrix();
   translate(0, -0.5*height);

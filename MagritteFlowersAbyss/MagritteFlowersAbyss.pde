@@ -1,39 +1,34 @@
+FlowerAbyss mfa;
 QuilezFunctions qf;
 GeoFunctions gf;
-JdUnit jd;
 
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
-  size(1280 , 720, P3D);
+  size(1280,720, P3D);
   cnt = 3  ;
   // frameRate = 60 per sec default
-
+  mfa = new FlowerAbyss();
   qf = new QuilezFunctions();
   gf = new GeoFunctions();
-  jd = new JdUnit();
+  
   cb = new NoizeBob(1.0, 0.002, 0.5);
   swb = new NoizeBob(1.0, 0.001, 0.9);
   zbob = new NoizeBob(1.0, 0.01, 0.3);
   xbob = new NoizeBob(1., 0.001, 0.3);
   ybob = new NoizeBob(1., 0.001, 0.3);
   
-  colorMode(RGB,1.);
+  colorMode(HSB,1.);
   }
 
 void draw() {
   
-  background(0.);
+  background(0.6);
+  directionalLight(1.,0.,1.,sin(xbob.getBob()),cos(xbob.getBobTail(1)),-1);
+
   
-  jd.draw();
+  mfa.drawFlower();
   
-  /*for (int i = 0; i< width; i++) {
-   float hh = 0.5*height*qf.expStep(1.1*i/width, 200., 4.0);
-   circle(i, hh, 10); 
-    
-  }
-  */
-  //println(frameCount);
   //saveFrame();
 } 
 

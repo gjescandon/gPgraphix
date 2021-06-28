@@ -7,8 +7,8 @@ class Chords {
    llbob = new NoizeBob(1.0, 0.003, 0.5);
    lsbob = new NoizeBob(1.0, 0.01, 0.5);
    swbob = new NoizeBob(PI, 0.001, 0.5);
-   xbob = new NoizeBob(100.0, 0.01, 0.5);
-   ybob = new NoizeBob(100.0, 0.01, 0.5);
+   xbob = new NoizeBob(100.0, 0.001, 0.5);
+   ybob = new NoizeBob(100.0, 0.001, 0.5);
    zbob = new NoizeBob(300.0, 0.001, 0.5);
  }
  
@@ -25,7 +25,7 @@ class Chords {
  
  
  void drawChord() {
-   float r = 0.3*height;//*llbob.getBobTail(1);
+   float r = 0.4*height;//*llbob.getBobTail(1);
    float t1 = swbob.getBob();
    float t0 = 1. * PI / index;
    float cd = 25. * r / index;

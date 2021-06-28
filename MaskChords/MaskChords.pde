@@ -17,6 +17,6 @@ void draw() {
   translate(0.3*width + 0.4 * width * cb.getBob(), 0.45*height + 0.1*height*(1-cb.getBobTail(10)));
   ch.draw();
   println(frameCount);
-  //saveFrame();
+  saveFrame();
 
 } 

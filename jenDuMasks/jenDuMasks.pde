@@ -33,8 +33,8 @@ void draw() {
     
   }
   */
-  //println(frameCount);
-  //saveFrame();
+  println(frameCount);
+  saveFrame();
 } 
 
 

@@ -1,14 +1,16 @@
 PImage img, img2;
 AutoPalette apal, apal2;
 NoizeBob cb, cb2, bb;
+BlowerCurve bc;
 
 void setup() {
- size(1280, 720);
+ size(1280, 720, P3D);
  colorMode(HSB,1.);
  background(0.);
  
  apal = new AutoPalette();
  apal2 = new AutoPalette();
+ bc = new BlowerCurve();
  
  cb = new NoizeBob(1.0, 0.01, 0.5);
  cb2 = new NoizeBob(1.0, 0.01, 0.5);
@@ -16,12 +18,13 @@ void setup() {
 }
 
 void draw() {
-  
+ background(0.);
+ directionalLight(1., 0., 1., 0.2*sin(cb.getBob()), 0.2*cos(cb.getBobTail(1)), -1);
  boolean useFader = false;
  boolean blowAway = false;
  
  
-
+/*
    drawBlock(1010, useFader, blowAway); 
  if (bb.getBob() > 0.6) {
    blowAway = true;
@@ -34,7 +37,15 @@ blowAway = false;
 
    drawBlock(370, useFader, blowAway); 
    drawBlock(690, useFader, blowAway); 
-
+*/
+  translate(0.5*width, 0.5*height);
+  pushMatrix();
+  rotateZ(0.01*frameCount);
+  bc. draw();
+  popMatrix();
+  
+  println(frameCount);
+  
 }
 
 

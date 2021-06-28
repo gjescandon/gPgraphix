@@ -5,9 +5,9 @@ class Boxzz {
   NoizeBob swbob, llbob, xbob, ybob;
  Boxzz() {
    llbob = new NoizeBob(1.0, 0.01, 0.5);
-   swbob = new NoizeBob(1.0, 0.01, 0.5);
-   xbob = new NoizeBob(200.0, 0.01, 0.5);
-   ybob = new NoizeBob(200.0, 0.01, 0.5);
+   swbob = new NoizeBob(1.0, 0.003, 0.5);
+   xbob = new NoizeBob(200.0, 0.003, 0.5);
+   ybob = new NoizeBob(200.0, 0.003, 0.5);
  }
  
  void draw() {
@@ -16,7 +16,7 @@ class Boxzz {
    stroke(1.);
    fill(1.);
    pushMatrix();
-   rotateZ(-0.001*frameCount);
+   rotateZ(-0.0001*frameCount);
    drawBox();
    popMatrix();
  }

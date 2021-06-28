@@ -7,7 +7,7 @@ AutoPalette apal, apal2;
 color bc;
 float h0, w0;
 float tFib;
-boolean saveFrame = true;
+boolean saveFrame = false;
 ColorBoxBuilder bluz;
 BullsEye beye;
 
@@ -41,14 +41,14 @@ void draw() {
 
   pushMatrix();
   translate(0,0, 0- 2*zBob.getBob());
-  bluz.draw();
+  //beye.draw();
 
   popMatrix();
   pushMatrix();
   //translate(xbob.getBob(), yBob.getBob(), 0 - zBob.getBob());
   //translate(xbob.getBob(), yBob.getBob(), 0- zBob.getBob());
 
-  //beye.draw();
+  beye.draw();
   popMatrix();
   popMatrix();
   

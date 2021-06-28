@@ -25,13 +25,14 @@ void draw() {
   //println(offset);
   
   translate(0.5*width,0.5*height + 0.15*offset*height,70*offset);
-  rotateX( 1.01*HALF_PI * offset);
+  //rotateX( 1.01*HALF_PI * offset);
   
   
   // layer 3
   
   pushMatrix();
   //translate(50*sin(0.1*frameCount),50*cos(0.1*frameCount),00);
+  translate(0,0,-20);
   flock1.draw();
   popMatrix();
   
@@ -39,18 +40,18 @@ void draw() {
   // layer 2
   
   pushMatrix();
-  translate(0,0,100);
-  flock2.draw();
+  translate(0,0,0);
+  //flock2.draw();
   popMatrix();
   
   // layer 1
   
   pushMatrix();
-  translate(0,0,200);
-  flock3.draw();
+  translate(0,0,40);
+  //flock3.draw();
   popMatrix();
   
   popMatrix();
-  saveFrame();
+  //saveFrame();
   println(frameCount);
 }

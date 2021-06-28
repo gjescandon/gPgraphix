@@ -41,8 +41,8 @@ void setup() {
 }
 
 void draw() {
-  //background(apal.getColor(0.0001*frameCount));
-  background(chromaKey);
+  background(apal.getColor(0.0001*frameCount));
+  //background(chromaKey);
         
   int dmax = 8;
   float bw = 1.*width/dmax;

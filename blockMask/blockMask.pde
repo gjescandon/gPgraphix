@@ -19,6 +19,6 @@ void draw() {
   translate(0.2*height+0.7*width*xb.getBob(), 0.2*height+0.7*height*yb.getBob());
   bxz.draw();
   println(frameCount);
-  //saveFrame();
+  saveFrame();
 
 } 

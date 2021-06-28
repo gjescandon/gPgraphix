@@ -76,7 +76,7 @@ class FlockBox{
   
   void init(){
     nb2d = new NoizeBob_2D(1.0, 0.009, 0.6);  //  z noise
-    cb2d = new NoizeBob_2D(1.0, 0.0001, 0.0001, 0.8);  //  color noise large
+    cb2d = new NoizeBob_2D(1.0, 0.001, 0.001, 0.8);  //  color noise large
     pb2d = new NoizeBob_2D(1.0, 0.003, 0.003, 0.7);  //  color noise large
     cbob = new NoizeBob(1.0, 0.00001, 0.3); // color noise small
     xbob = new NoizeBob(10.0, 0.006, 0.4);

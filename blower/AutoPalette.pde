@@ -56,6 +56,10 @@ class AutoPalette{
      a1 = hue;
      a2 = sat;
      a3 = bril;
+     
+     b1 = 0.2;
+     b2 = 0.2;
+     b3 = 0.3;
 
  }
 
