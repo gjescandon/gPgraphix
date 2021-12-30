@@ -111,12 +111,12 @@ class JdUnit {
    //jdo[0] = new Jdo(1,a,b,c,d);
    //jdo[0] = defineTriangleByAspect(8.,6.);
    jdo[0] = defineCircle(1.);
-         jdo[0] = defineRectByAspect(4.,6.);
+   //jdo[0] = defineRectByAspect(4.,6.);
 
    //possible triangle points : 16:9
    //if (random(1) > 0.6)
    jdo[1] = defineTriangleByAspect(8.,6.);
-         jdo[1] = defineRectByAspect(4.,6.);
+        // jdo[1] = defineRectByAspect(4.,6.);
 
    for (int i = 2; i < jdoSize; i++) {
      int sw = floor(10* random(1));
@@ -131,7 +131,7 @@ class JdUnit {
      switch (index) {
        case 0:
          jdoX = defineTriangleByAspect(8.,6.);
-         jdoX = defineRectByAspect(8.,3.);
+         //jdoX = defineRectByAspect(8.,3.);
          break;
        case 1:
          jdoX = defineTriangleByAspect(4.,6.);
@@ -140,23 +140,26 @@ class JdUnit {
        case 2:
          jdoX = defineTriangleByAspect(4.,3.);
          jdoX = defineRectByAspect(4.,3.);
-         break;
+         jdoX = defineTriangleByAspect(8.,6.);
+                  break;
        case 3:
          jdoX = defineRectByAspect(4.,3.);
          jdoX = defineRectByAspect(2.,3.);
+         jdoX = defineTriangleByAspect(8.,6.);
          break;
        case 4:
          //jdoX = defineRectByAspect(2.,3.);
-         //jdoX = defineCircle(1);
-         jdoX = defineRectByAspect(2.,3.);
+         jdoX = defineCircle(1);
+         //jdoX = defineRectByAspect(2.,3.);
          break;
        case 5:
-         //jdoX = defineCircle(2);
-         jdoX = defineRectByAspect(2.,1.);
+         jdoX = defineCircle(1);
+         //jdoX = defineRectByAspect(2.,1.);
          break;
        case 6:
          //jdoX = defineCircle(3);
-         jdoX = defineRectByAspect(2.,1.);
+         //jdoX = defineRectByAspect(2.,1.);
+         jdoX = defineRectByAspect(8.,6.);
          break;
        default:
          break;

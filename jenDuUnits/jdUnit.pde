@@ -8,6 +8,7 @@ class JdUnit {
  int[] jdoStartPoint;
  int jdoSize = 13;
  QuilezFunctions qf;
+ NoizeBob sbob;
  
    float x0  = 0.05*width;
    float y0 = 0.05*height;
@@ -28,35 +29,44 @@ class JdUnit {
   //if (frameCount%500==0) setup();
 
   for (int i =0; i< jdoSize; i++) {
-    
-    fill(apal.getColor((coff + 1.*i / jdoSize) * (1. + 0.5* sin(0.001* frameCount))));
+    float cc = (coff + 1.*i / jdoSize) * (1. + 0.5* sin(0.001* frameCount));
+    fill(apal.getColor(cc));
+    //stroke(apal.getColor(cc));
+    //strokeWeight(20.*sbob.getBob());
+    //strokeCap(ROUND);
+    //strokeJoin(ROUND);
     noStroke();
     pushMatrix();
     float ss = 1.;
     
-    if(i>0) {
     float ss1 = qf.expSustainedImpulse(1.*(frameCount-jdoStartPoint[i]),50., 1.);
     float ss2 = qf.expStep(1.1*(frameCount-jdoStartPoint[i])/jdoClock[i], 40., 8. );
     if (ss2 <= 0.05) {
+       //if(i==0) {
+       //  jdo[i] = getJdoFrame(floor(random(6)));
+       //}
        jdo[i] = getJdo(floor(random(6)));
        if (random(1) > 0.99) jdo[i] = defineTriangleByAspect(16.,9.);
        jdoClock[i] = 1000 + floor(random(300));
        jdoStartPoint[i] = frameCount;
       }
     ss = ss1 * ss2;
-    }
-     switch(floor(jdo[i].getVals()[0])) {
+    
+    //drawSq1(new Jdo(x0,y0,wmax, 2*y0),1.0);
+    //drawSq1(new Jdo(wmax-x0-x0,y0,wmax-x0, 2*y0),1.0);
+    
+    switch(floor(jdo[i].getVals()[0])) {
     case 0: 
       //println("Alpha");  // Does not execute
       break;
     case 1: 
-      drawSq1(jdo[i], ss);  // Prints "Bravo"
+      drawSq1(jdo[i], ss);  // Prints "sq"
       break;
     case 2: 
-      drawTri2(jdo[i], ss);  // Prints "Bravo"
+      drawTri2(jdo[i], ss);  // Prints "tri"
       break;
     case 3: 
-      drawCircle3(jdo[i], ss);  // Prints "Bravo"
+      drawCircle3(jdo[i], ss);  // Prints "circ"
       break;
     default:
       //println("Zulu");   // Does not execute
@@ -89,7 +99,7 @@ class JdUnit {
    swArr = new float[jdoSize];
    jdoClock = new int[jdoSize];
    jdoStartPoint = new int[jdoSize];
-   
+   sbob = new NoizeBob(1.0, 0.003, 0.7);
    
    for (int i = 0; i < jdo.length; i++) {
     jdo[i] = new Jdo(0); 
@@ -123,25 +133,53 @@ class JdUnit {
    Jdo jdoX = new Jdo(0);
      switch (index) {
        case 0:
-         jdoX = defineTriangleByAspect(8.,9.);
          break;
        case 1:
-         jdoX = defineTriangleByAspect(8.,6.);
-         break;
-       case 2:
-         jdoX = defineTriangleByAspect(4.,6.);
-         break;
-       case 3:
          jdoX = defineRectByAspect(4.,3.);
          break;
-       case 4:
+       case 2:
          jdoX = defineRectByAspect(4.,6.);
          break;
+       case 3:
+         jdoX = defineTriangleByAspect(8.,9.);
+         break;
+       case 4:
+         jdoX = defineTriangleByAspect(4.,6.);
+         break;
        case 5:
-         jdoX = defineCircle(7);
+         jdoX = defineCircle(1.5);
          break;
        case 6:
-         jdoX = defineCircle(3);
+         jdoX = defineCircle(2);
+         break;
+       default:
+         break;
+     }
+   return jdoX;
+ }
+ 
+ Jdo getJdoFrame(int index) {
+   Jdo jdoX = new Jdo(0);
+     switch (index) {
+       case 0:
+         break;
+       case 1:
+         jdoX = defineRectByAspect(8.,3.);
+         break;
+       case 2:
+         jdoX = defineRectByAspect(8.,6.);
+         break;
+       case 3:
+         jdoX = defineRectByAspect(8.,9.);
+         break;
+       case 4:
+         jdoX = defineRectByAspect(2.,6.);
+         break;
+       case 5:
+         jdoX = defineRectByAspect(2.,8.);
+         break;
+       case 6:
+         jdoX = defineRectByAspect(2.,5.);
          break;
        default:
          break;
@@ -157,8 +195,10 @@ class JdUnit {
    float type = 3; // circle type 3;
    float xoff = 0;
       xoff = (wmax / aspectX)*floor(random(aspectX -1));
+      xoff = (wmax / aspectX)*floor(random(aspectX ));
     float yoff = 0;
       yoff = (hmax / aspectY)*floor(random(aspectY -1));
+      yoff = (hmax / aspectY)*floor(random(aspectY ));
     
     float x1 = 2.*x0 + xoff; 
     float y1 = 2.*y0 + yoff;
@@ -248,7 +288,7 @@ class Jdo {
  }
  Jdo(float type, float x1, float y1, float x2, float y2) {
    val = new float[10];
-   val[0] = type; // expecting 1
+   val[0] = type; // expecting 1 square
    val[1] = x1;
    val[2] = y1;
    val[3] = x2;
@@ -257,7 +297,7 @@ class Jdo {
  }
  Jdo(float type, float x1, float y1, float x2, float y2, float x3, float y3) {
    val = new float[10];
-   val[0] = type; // expectin 2
+   val[0] = type; // expectin 2 triangle
    val[1] = x1;
    val[2] = y1;
    val[3] = x2;

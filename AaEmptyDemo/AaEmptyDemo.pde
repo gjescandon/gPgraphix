@@ -1,6 +1,7 @@
 Boxzz bxz;
 QuilezFunctions qf;
 GeoFunctions gf;
+MaskCirclesAlt mask;
 
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
@@ -17,7 +18,7 @@ void setup() {
   zbob = new NoizeBob(1.0, 0.01, 0.3);
   xbob = new NoizeBob(1., 0.001, 0.3);
   ybob = new NoizeBob(1., 0.001, 0.3);
-  
+  mask = new MaskCirclesAlt();
   colorMode(HSB,1.);
   }
 

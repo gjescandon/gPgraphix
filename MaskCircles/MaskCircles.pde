@@ -1,41 +1,41 @@
+Boxzz bxz;
 QuilezFunctions qf;
 GeoFunctions gf;
-JdUnit jd;
-Bkgrndr bkg;
+MaskCirclesAlt mask;
 
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
-  size(1280 , 720, P3D);
+  size(1280,720, P3D);
   cnt = 3  ;
   // frameRate = 60 per sec default
-
+  bxz = new Boxzz();
   qf = new QuilezFunctions();
   gf = new GeoFunctions();
-  jd = new JdUnit();
+  
   cb = new NoizeBob(1.0, 0.002, 0.5);
   swb = new NoizeBob(1.0, 0.001, 0.9);
   zbob = new NoizeBob(1.0, 0.01, 0.3);
   xbob = new NoizeBob(1., 0.001, 0.3);
   ybob = new NoizeBob(1., 0.001, 0.3);
-  
-  bkg = new Bkgrndr();
-  
-  colorMode(RGB,1.);
+  mask = new MaskCirclesAlt();
+  colorMode(HSB,1.);
+  background(0.);
   }
 
 void draw() {
   
-  background(0.);
-  bkg.draw();
-  jd.draw();
-  
-  /*for (int i = 0; i< width; i++) {
-   float hh = 0.5*height*qf.expStep(1.1*i/width, 200., 4.0);
-   circle(i, hh, 10); 
+  float a = 0.1 * width;
+  float b = 0.1 * height;
+  float c = 0.8 * width;
+  float d = 0.8 * height;
     
-  }
-  */
+  //GPoint gp1 = new GPoint(a,b);
+  //GPoint gp2 = new GPoint(a+c, b+d);
+  //float dd = gf.getLen(gp1, gp2);
+  
+  mask.draw();
+  
   println(frameCount);
   //saveFrame();
 } 

@@ -1,11 +1,11 @@
 class Bkgrndr {
   
-  AutoPalette apal;
+  AutoPaletteRGB apal;
   NoizeBob cbob;
   float fc1, fc2 ,fc3, fc4, fc5;
   float rat;
  Bkgrndr(){
-    apal = new AutoPalette();
+    apal = new AutoPaletteRGB();
     cbob = new NoizeBob(1.0, 0.001, 0.3);
     fc1 = random(1);
     fc2 = random(1);

@@ -2,15 +2,14 @@ NoizeBob zBob, xbob, cbob;
 NoizeBob yBob;
 QuilezFunctions qeq;
 AutoPalette apal, apal2;
-ImageAscender images;
+ImageMover images;
 color bc;
 float h0, w0;
 float tFib;
-boolean saveFrame = false;
+boolean saveFrame = true;
 int eyeMax = 5 ;
 int[] eyeYoff;
-Bkgrndr bkgrndr;
-
+BkgrndrHorizontal bkgH;
 
 void setup() {
   size(1280,720);
@@ -28,9 +27,9 @@ void setup() {
   h0 = 0.5*height;
   tFib = 137.5*TWO_PI/360;
   
-  images = new ImageAscender();
+  images = new ImageMover();
   
-  bkgrndr = new Bkgrndr();
+  bkgH = new BkgrndrHorizontal();
   
   background(0.2);
 }
@@ -38,10 +37,9 @@ void setup() {
 void draw() {
   background(0.0);
   //directionalLight(1.,0.,1.,0.3*sin(xbob.getBob()),0.3*cos(xbob.getBobTail(1)),-1);
-  //bkgrndr.draw();
+  bkgH.draw();
 
-  images.drawGrid();
-  //images.drawMany();
+  images.draw();
   
 
   
