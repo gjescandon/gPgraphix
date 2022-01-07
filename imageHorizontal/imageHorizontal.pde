@@ -6,7 +6,7 @@ ImageMover images;
 color bc;
 float h0, w0;
 float tFib;
-boolean saveFrame = true;
+boolean saveFrame = false;
 int eyeMax = 5 ;
 int[] eyeYoff;
 BkgrndrHorizontal bkgH;

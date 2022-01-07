@@ -147,7 +147,7 @@ class Spirograph {
     for (float theta = 0; theta < 2*PI; theta += thetaInc) {
      Point pp = getPoint(theta);
      //vertex(offx - ss * x, offy + ss * y);
-     vertex(ss * pp.xx,  ss * pp.yy);
+     vertex(pp.xx,  ss * pp.yy);
     }  
     endShape(CLOSE);
     popMatrix();
@@ -159,15 +159,9 @@ class Spirograph {
   Point getPoint(float theta) {
      float x = r1 * cos(n1 * theta) + r2 * cos(n2 * theta);// + r3 * cos(n3 * theta);
      float y = r1 * sin(n1 * theta) + r2 * sin(n2 * theta);// + r3 * sin(n3 * theta) ;
-     Point pp = new Point(x, y);
+     Point pp = new Point(ss *x, ss * y);
     return pp;
   }
   
- class Point {
-  float xx, yy;
-  Point(float x, float y) {
-    xx = x;
-    yy = y;
-  }
- }
+
 }

@@ -63,4 +63,8 @@ class SpiroSeed {
   float getN2() {
     return 1.0 * n2;
   }
+  
+  void print() {
+   println("" + r1 + " " + r2 + " " + n1 + " " + n2); 
+  }
 }
