@@ -34,14 +34,16 @@ class Particle {
     return part;
   }
   
-  void rebirth(float x, float y) {
+  void rebirth(float x, float y, float z) {
     float a = random(TWO_PI);
     float speed = random(0.5,1.);
     velocity = new PVector(cos(a), sin(a));
     velocity.mult(speed);
     lifespan = random(lifespan0);   
     part.resetMatrix();
-    part.translate(x, y); 
+    //pushMatrix();
+    part.translate(x, y, z);
+    //popMatrix();
   }
   
   boolean isDead() {

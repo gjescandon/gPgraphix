@@ -3,7 +3,7 @@ FlockBox flock;
 NoizeBob lbob;
 
 void setup() {
-  size(1280,720, P3D);
+  size(720,720, P3D);
   
   flock = new FlockBox();
   
@@ -15,6 +15,6 @@ void draw() {
   background(0.2);
   directionalLight(0.9, 0.0, 0.9, sin(0.0001*frameCount*lbob.getBob()), sin(0.0001*frameCount*lbob.getBobTail(10000)), -1.);
   flock.draw();
-  saveFrame();
+  //saveFrame();
   println(frameCount);
 }

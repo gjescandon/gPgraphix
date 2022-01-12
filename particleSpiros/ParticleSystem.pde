@@ -20,10 +20,10 @@ class ParticleSystem {
     }
   }
 
-  void setEmitter(float x, float y) {
+  void setEmitter(float x, float y, float z) {
     for (Particle p : particles) {
       if (p.isDead()) {
-        p.rebirth(x, y);
+        p.rebirth(x, y, z);
       }
     }
   }
