@@ -34,7 +34,7 @@ void setup() {
 } 
 
 void draw () {
-  background(0.2);
+  background(0.4);
   ps.update();
   ps.display();
   
@@ -51,7 +51,7 @@ void draw () {
   ps.setEmitter(0.5*width + ss * pp.xx, 0.5*height + ss * pp.yy, zoff);
   popMatrix();
   
-  //saveFrame();
+  saveFrame();
   println(frameCount);
   
 }

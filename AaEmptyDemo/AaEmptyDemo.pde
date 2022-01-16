@@ -45,6 +45,9 @@ void draw() {
   rect(c+a-d,b, d, d);
   
   //saveFrame();
+  int bpm = 70;
+  int bpmms = 1000*1*60/bpm;
+  println(bpmms + " "+ millis() + " " + floor(millis()/bpmms));
 } 
 
 
