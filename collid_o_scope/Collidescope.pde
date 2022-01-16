@@ -69,7 +69,7 @@ class Collidescope {
       
     }
     canvas.updatePixels();
-    theta0 += rbob.getBob() - 0.5;
+    theta0 += 0.03*(rbob.getBob() - 0.5);
     
     if (theta0 > 2*PI) {
       theta0 = 0.0;
@@ -113,6 +113,6 @@ class Collidescope {
     y0 = floor((0.9 * random(1)) * height);
     //x0 = 100.0;
     y0 = 100.0;
-    rbob = new NoizeBob(1., 0.01, 0.6);
+    rbob = new NoizeBob(1., 0.1, 0.7);
   }
 }

@@ -21,7 +21,7 @@ void init() {
   }
   
   nbob = new NoizeBob(1., 0.1, 0.7);
-  sbob = new NoizeBob(1., 0.4, 0.5);
+  sbob = new NoizeBob(1., 0.1, 0.5);
 }
 void draw() {
   if (frameCount % bpmms() == 0) init();
@@ -35,7 +35,6 @@ void draw() {
     for(int j = 0; j < cntY; j++) {
       pushMatrix();
       
-      //translate((i+0.5)*xoff,(j+0.5)*yoff,150*nbob.getBobTail(3*i+j));
       float zoff = 0.;
       if (i==1) {
         zoff += 10.;
@@ -74,7 +73,7 @@ void draw() {
 
 float bpmms() {
   float ret  = 0.;
-  ret = floor(1000*0.25*60/BPM);
+  ret = floor(1000*0.5*60/BPM);
   
   return ret;
 }
