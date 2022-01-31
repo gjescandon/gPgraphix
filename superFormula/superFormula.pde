@@ -55,7 +55,7 @@ void draw() {
    println(frameCount);
    drawSuperFormula();
    
-   saveFrame();
+   //saveFrame();
 
 
   

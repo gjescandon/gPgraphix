@@ -2,18 +2,33 @@ float theta, thetaInc;
 float zoff, zoffInc;
 SpitBalls balls;
 
+/***
+
+good 
+
+*/
+
+
 void setup() {
  size(720,702,P3D); 
   theta = 0.;
-  thetaInc = 0.01;
+  /// fib angle = 137.5
+  thetaInc = 137.7 * PI / 180.;
+
   zoff = 0.0;
   zoffInc = 0.05;
+  colorMode(HSB, 1.);
   
   balls = new SpitBalls();
 }
 
 void draw() {
   background(200);
+  float lx = 0.05* sin(0.06*frameCount);
+  float ly = 0.05* cos(0.06*frameCount);
+  
+  directionalLight(1., 0., 1., lx, ly, -1);
+  
   stroke(0);
   line(0.5*width,0,0.5*width, height);
   noStroke();

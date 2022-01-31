@@ -9,6 +9,13 @@
  * A 3D textured sphere with simple rotation control.
  */
 
+
+/****
+
+bad : incomplete
+
+*/
+
 int ptsW, ptsH;
 
 PImage img;

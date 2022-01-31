@@ -5,15 +5,22 @@ SpitBalls balls;
 void setup() {
  size(720,702,P3D); 
   theta = 0.;
-  thetaInc = 0.01;
+  // fibbr angle 137.5;
+  thetaInc = 137.5 * PI / 180.;
+  
   zoff = 0.0;
   zoffInc = 0.05;
   
   balls = new SpitBalls();
+  colorMode(HSB, 1.);
 }
 
 void draw() {
-  background(200);
+  background(1.);
+  float lx = 0.1*sin(0.1*frameCount);
+  float ly = 0.1*cos(0.1*frameCount);
+  directionalLight(1., 0., 1., lx, ly, -1);
+  
   stroke(0);
   line(0.5*width,0,0.5*width, height);
   noStroke();
@@ -51,7 +58,7 @@ void draw() {
    // 1. S
 
    noStroke();
-   fill(0,0,200);
+   fill(1., 0., 1.);
    float s1h = 0.2*height;
    float s1w = 100;
    float rr1a = 0.;
