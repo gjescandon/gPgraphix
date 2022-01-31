@@ -3,6 +3,13 @@ Mandala1 mandala1;
 NoizeBob xBob, yBob;
 float duty = 0.8;
 AutoPalette apal;
+
+
+/****
+
+ok : convert this to 3D pyramids etc
+*/
+
   void setup() {
   size(1280,720, P3D);
   frameRate(28);

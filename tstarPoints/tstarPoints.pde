@@ -1,6 +1,9 @@
 TstarImage timg;
 float theta, thetaInc;
 
+/****this is just ok : makes noisy background and tstart appear/dissapear
+*/
+
 void setup() {
  size(1280, 720);
  frameRate(24);
@@ -8,7 +11,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+ background(0);
  timg.move(); 
  //saveFrame();
 }

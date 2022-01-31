@@ -4,6 +4,13 @@ NoizeBob cb,zbob, xbob, ybob, swb;
 TriangleBuilder[] tb;
 float rOff;
 int cnt;
+
+
+/****
+
+good : interestin 3d action
+*/
+
 void setup() {
   size(720,720, P3D);
   colorMode(HSB,1.);

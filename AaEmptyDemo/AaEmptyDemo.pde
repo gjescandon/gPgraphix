@@ -2,6 +2,8 @@ Boxzz bxz;
 QuilezFunctions qf;
 GeoFunctions gf;
 MaskCirclesAlt mask;
+int frameBump, frameInc;
+int BPM = 96;
 
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
@@ -20,10 +22,17 @@ void setup() {
   ybob = new NoizeBob(1., 0.001, 0.3);
   mask = new MaskCirclesAlt();
   colorMode(HSB,1.);
+  
+  frameInc = 1000*1*60/BPM;
+  frameBump = frameInc;
   }
 
 void draw() {
   
+  if (frameCount > frameBump) {
+   // init();
+   frameBump = frameCount+frameInc;
+  }
   background(0.);
   float a = 0.1 * width;
   float b = 0.1 * height;
@@ -31,18 +40,19 @@ void draw() {
   float d = 0.8 * height;
   
   fill(0.9);
-  rect(a, b, c ,d);
+  //rect(a, b, c ,d);
   
   GPoint gp1 = new GPoint(a,b);
   GPoint gp2 = new GPoint(a+c, b+d);
   float dd = gf.getLen(gp1, gp2);
   
   fill(0.7);
-  rect(a,b, dd - c, d);
+  //rect(a,b, dd - c, d);
+  box(200, 100, 10);
   
   noFill();
-  rect(a,b, d, d);
-  rect(c+a-d,b, d, d);
+  //rect(a,b, d, d);
+  //rect(c+a-d,b, d, d);
   
   //saveFrame();
   int bpm = 70;

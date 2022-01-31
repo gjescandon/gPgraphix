@@ -21,7 +21,7 @@ class Spiralizer {
  Spiralizer (int offset_) {
    theta = 0.;
    rad = 0.;
-   tinc = 2.7;
+   tinc = 2.4 + 0.5* random(1.);
    if (random(1) < 0.5) tinc = 0.-tinc;
    a = random(10.);
    b = 20. + random(13.);
