@@ -9,6 +9,9 @@ NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
   size(1280,720, P3D);
+  frameInc = 1000*1*60/BPM;
+  frameBump = frameInc;
+  
   cnt = 3  ;
   // frameRate = 60 per sec default
   bxz = new Boxzz();
@@ -23,8 +26,7 @@ void setup() {
   mask = new MaskCirclesAlt();
   colorMode(HSB,1.);
   
-  frameInc = 1000*1*60/BPM;
-  frameBump = frameInc;
+
   }
 
 void draw() {

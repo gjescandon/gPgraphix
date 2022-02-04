@@ -7,9 +7,9 @@ WordFlyers words;
 LlamaWalk ll;
 
 void setup() {
-  size(1280,720, P3D);
+  size(720,720, P3D);
   
-  flock1 = new FlockBox(0.7,0.5);
+  flock1 = new FlockBox(0.9,0.6);
   words = new WordFlyers();
   ll = new LlamaWalk();
   
@@ -32,16 +32,16 @@ void draw() {
   translate(0-rot*width*rbob.getBobTail(1),0,100*rbob.getBobTail(10));
   pushMatrix();
   translate(0,0,-200);
-  nwave.setGradient();
+  nwave.setGradient(0.1);
   popMatrix();  
   
   pushMatrix();
   float offset = qf.expSustainedImpulse(1.* frameCount / 100., 4., 0.8);
-  offset = 1.;
+  //offset = 1.;
   //println(offset);
   
-  translate(0.5*width,0.5*height + 0.08*offset*height,70*offset);
-  rotateX( 0.9*HALF_PI * offset);
+  translate(0.5*width,0.4*height ,90*offset);
+  rotateX( (0.9*HALF_PI + 0.3*sin(0.006*frameCount))* offset);
   
   
   // layer 3
@@ -54,11 +54,11 @@ void draw() {
   
   
   popMatrix();
-  nwave.draw();
-  words.draw();
+  //nwave.draw();
+  //words.draw();
   
-  if (frameCount > 2000) ll.draw();
-  saveFrame();
+  if (frameCount > 20) ll.draw();
+  //saveFrame();
   
   println(frameCount);
 }

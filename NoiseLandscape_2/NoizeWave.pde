@@ -20,7 +20,7 @@ NoizeBob nb;
   NoizeWave() {
   
   apal = new AutoPalette(0.6);
-  apal2 = new AutoPalette(0.4, 0.6, 0.3);
+  apal2 = new AutoPalette(0.6, 0.8, 0.8);
   nb = new NoizeBob(1.0, 0.000001, 0.5);
   c0 = 0.;
   cinc = 0.001;
@@ -146,9 +146,12 @@ float drawWave(float yMin, float yMax, float yoff, float yinc, float xinc) {
 
 
 void setGradient() {
-
+  setGradient(0.25);
+}
+void setGradient(float horizon_) {
+  
   //println(c0);
-  int ymin = 0-height/4;
+  int ymin = 0-floor(height*horizon_);
   int ymax = floor(1.2*height);
   
   float dmin = 1.;
@@ -171,9 +174,9 @@ void setGradient() {
      if (y0 > dmax) dmax = y0;
   }
   popMatrix();
-  fill(0.1);
-  stroke(0.1);
-  rect(0-300,0.5*height,width+500,0.7*height);
+  //fill(0.1);
+  //stroke(0.1);
+  //rect(0-300,0.5*height,width+500,0.7*height);
   c0 += cinc;
   //c0 -= floor(c0);
  //println ("c0 " + c0);

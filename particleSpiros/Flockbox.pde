@@ -28,7 +28,7 @@ class FlockBox{
       for (int j = 0; j <= fs; j++) {
         pushMatrix();
         
-        translate(xbob.getBobTail(i) - 5.0, ybob.getBobTail(j) - 5.0, -300);
+        translate(xbob.getBobTail(i) - 5.0, ybob.getBobTail(j) - 5.0, -500);
         pushMatrix();
         float bobtail = nb2d.getBobTail(30.*i,30.*j);
         float bobtailC = 0.;

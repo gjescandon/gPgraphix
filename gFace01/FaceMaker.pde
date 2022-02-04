@@ -4,21 +4,17 @@ class FaceMaker {
   float xdiv, ydiv;
   NoizeBob xbob, ybob;
   NoizeBob_2D zbob;
+  AutoPalette apal;
+  
  FaceMaker() {
    setup();
-   
-   xdiv = 5;
-   ydiv = 23;
-   
-   xbob = new NoizeBob(1.0, 0.0001, 0.5);
-   ybob = new NoizeBob(1.0, 0.1, 0.7);
-   zbob = new NoizeBob_2D(1.0, 0.001, 0.001, 0.7);
  }
  
  void draw() {
   //drawAsc(gf[2]);
-  image(gf[2],0,0,width,height);
-  drawSliced(gf[2]);
+  //image(gf[2],0,0,width,height);
+  drawCircles(gf[2]);
+  //drawSliced(gf[2]);
  }
  
  void drawAsc(PImage simg) {
@@ -36,7 +32,38 @@ class FaceMaker {
    
  }
  
- void drawSliced(PImage simg) {
+ void drawCircles(PImage simg) {
+    simg.loadPixels();
+    float xoff = width / xdiv;
+    float yoff = height / ydiv;
+    //stroke(1.0);
+    noStroke();
+    xbob.getBob();
+    ybob.getBob();
+    //if (frameCount % 100 == 0) zbob.getBob();
+    for (int x = 0; x < (width - 1); x+=10) {
+      for (int y = 0; y < (height -1); y += 10) {
+          //fill(simg.pixels[floor(y * width + x)]);
+          float r = zbob.getBobTail(x,y);
+          float roff = 0.8;
+          if (r > roff) {
+            r = map(r, roff, 1.0, 0., 1.0);
+            fill(apal.getColorDark(r));
+            r *= 56;
+            pushMatrix();
+            translate(0,0, 0-50-r);
+            ellipse(x, y, r, r);
+            popMatrix();
+          }      
+    }
+     
+     
+   }
+    
+   
+ }
+ 
+void drawSliced(PImage simg) {
     simg.loadPixels();
     float xoff = width / xdiv;
     float yoff = height / ydiv;
@@ -59,16 +86,25 @@ class FaceMaker {
    }
     
    
- }
+ } 
  
  
  void setup() {
+
+   xdiv = 5;
+   ydiv = 23;
    
+   xbob = new NoizeBob(1.0, 0.0001, 0.5);
+   ybob = new NoizeBob(1.0, 0.1, 0.7);
+   zbob = new NoizeBob_2D(1.0, 0.1, 0.1, 0.7);
+   zbob.getBob();
+   
+   apal = new AutoPalette();
   gf = new PImage[13];
-  gf[0] = loadImage("gfaces/IMG_2341r.jpg");
-  gf[1] = loadImage("gfaces/IMG_2340.jpg");
-  gf[2] = loadImage("gfaces/IMG_2798.jpg");
-  gf[2] = loadImage("gfaces/IMG_2899.jpg");
+  gf[0] = loadImage("gfaces/gface_0179.jpg");
+  gf[1] = loadImage("gfaces/gface_0180.jpg");
+  gf[2] = loadImage("gfaces/gface_0181.jpg");
+  gf[2] = loadImage("gfaces/gface_0182.jpg");
   
   gf[2].resize(width,height);
  }

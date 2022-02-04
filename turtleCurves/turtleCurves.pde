@@ -1,54 +1,63 @@
-
-FaceMaker fm;
-LineBuilder[] lines;
-
+Boxzz bxz;
 QuilezFunctions qf;
+GeoFunctions gf;
+MaskCirclesAlt mask;
+int frameBump, frameInc;
+int BPM = 96;
+
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
-int frameInc, frameStep;
-int BPM = 90;
-
 void setup() {
-  size(720,720, P3D);
+  size(1280,720, P3D);
   cnt = 3  ;
-  frameInc = 4*60*60/BPM;
-  frameStep = frameInc;
-  init();
-  }
-  
-void init() {
-    
   // frameRate = 60 per sec default
-  frameStep = frameCount + frameInc;
-  
-  fm = new FaceMaker();
-  lines = new LineBuilder[cnt];
-  for (int i = 0; i < cnt; i++) lines[i] = new LineBuilder();
-  colorMode(HSB,1.);
-  
+  bxz = new Boxzz();
   qf = new QuilezFunctions();
+  gf = new GeoFunctions();
+  
   cb = new NoizeBob(1.0, 0.002, 0.5);
   swb = new NoizeBob(1.0, 0.001, 0.9);
   zbob = new NoizeBob(1.0, 0.01, 0.3);
   xbob = new NoizeBob(1., 0.001, 0.3);
   ybob = new NoizeBob(1., 0.001, 0.3);
-  background(0.);
-}
+  mask = new MaskCirclesAlt();
+  colorMode(HSB,1.);
+  
+  frameInc = 1000*1*60/BPM;
+  frameBump = frameInc;
+  }
 
 void draw() {
-  colorMode(HSB,1.0);
+  
+  if (frameCount > frameBump) {
+   // init();
+   frameBump = frameCount+frameInc;
+  }
   background(0.);
-  directionalLight(1., 0., 1., 0.1* sin(xbob.getBob()), 0.1*cos(ybob.getBob()), -1);
+  float a = 0.1 * width;
+  float b = 0.1 * height;
+  float c = 0.8 * width;
+  float d = 0.8 * height;
   
+  fill(0.9);
+  //rect(a, b, c ,d);
   
+  GPoint gp1 = new GPoint(a,b);
+  GPoint gp2 = new GPoint(a+c, b+d);
+  float dd = gf.getLen(gp1, gp2);
   
-  fm.draw();
-  for (int i = 0; i < cnt; i++) lines[i].draw();
-  if (frameCount > frameStep) init();
+  fill(0.7);
+  //rect(a,b, dd - c, d);
+  box(200, 100, 10);
   
+  noFill();
+  //rect(a,b, d, d);
+  //rect(c+a-d,b, d, d);
   
-  println(frameCount);
   //saveFrame();
+  int bpm = 70;
+  int bpmms = 1000*1*60/bpm;
+  println(bpmms + " "+ millis() + " " + floor(millis()/bpmms));
 } 
 
 

@@ -5,19 +5,20 @@ LineBuilder[] lines;
 NoizeBob cb,zbob, xbob, ybob, swb;
 
 int frameInc, frameStep;
-int BPM = 120;
+int BPM = 80;
 
 int cnt;
 void setup() {
   size(720,720, P3D);
+  frameInc = 4*60*60/BPM;
+  frameStep = frameInc;
+
   cnt = 3  ;
   // frameRate = 60 per sec default
   
   qf = new QuilezFunctions();
   gf = new GeoFunctions();
   
-  frameInc = 4*60*60/BPM;
-  frameStep = frameInc;
     
   init();
   }
@@ -25,7 +26,8 @@ void setup() {
 void draw() {
   
   background(0.1);
-
+  directionalLight(1., 0., 1., 0.1* sin(xbob.getBob()), 0.1*cos(ybob.getBob()), -1);
+  
   for (int i = 0; i < cnt; i++) lines[i].draw();
   if (frameCount > frameStep) init();
     

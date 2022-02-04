@@ -45,13 +45,14 @@ void draw () {
   theta += thetaInc;
   if (theta >= TWO_PI) theta = 0.;
   float ss = ss0 * (0.7 + 0.3 * sin(0.01*frameCount));
-  float zoff = 300 + 100*sin(0.01*frameCount);
+  float zoff = 0 + 500*sin(0.01*frameCount);
   
   pushMatrix();
-  ps.setEmitter(0.5*width + ss * pp.xx, 0.5*height + ss * pp.yy, zoff);
+  //ps.setEmitter(0.5*width + ss * pp.xx, 0.5*height + ss * pp.yy, zoff);
+  ps.setEmitter(0.5*width, 0.5*height, zoff);
   popMatrix();
   
-  saveFrame();
+  //saveFrame();
   println(frameCount);
   
 }

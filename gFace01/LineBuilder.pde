@@ -2,7 +2,7 @@ class LineBuilder {
   int levels;
   int[] lineArr;
   NoizeBob sbob, lbob;
-  int x0, y0, orient, len0, sep0;
+  int x0, y0, orient, len0, sep0, dep0;
   int xoff, yoff;
   
   LineBuilder() {
@@ -17,13 +17,14 @@ class LineBuilder {
     x0 = 100;
     y0 = 100;
     len0 = 100 + floor(random(0.6*height));
-    sep0 = 13 + floor(random(21.));
+    sep0 = 21 + floor(random(34.));
+    dep0 = 48;
     orient = floor(random(2)); // 0 = vertical ; 1 = horizontal
     
-    println(levels);
-    println(len0);
-    println(sep0);
-    println(orient);
+    //println(levels);
+    //println(len0);
+    //println(sep0);
+    //println(orient);
     
     sbob = new NoizeBob(sep0, 0.1, 0.7);
     lbob = new NoizeBob(1., 0.1, 0.7);
@@ -32,11 +33,11 @@ class LineBuilder {
     lineArr = new int[levels];
     for (int i = 0; i < levels; i++) {
      lineArr[i] = 2 + floor(random(3)); 
-     println("lineArr " + i + " : " + lineArr[i]);
+     //println("lineArr " + i + " : " + lineArr[i]);
     }
     
-    xoff = floor(width * (0.2 + 0.6*random(1)));
-    yoff = floor(height * (0.2 + 0.6*random(1)));
+    xoff = floor(width * (0.3 + 0.4*random(1)));
+    yoff = floor(height * (0.3 + 0.4*random(1)));
     
   }
   
@@ -62,8 +63,8 @@ class LineBuilder {
        int y2 = y1 + floor(0.5* len);
        //line(x1, y1, x2, y2);
        pushMatrix();
-       translate(x1, y1, 0.);
-       box(x2-x1, y2-y1, 48);
+       translate(x1, y1, dep0);
+       box(x2-x1, y2-y1, floor(dep0 * (1. + 2.*lbob.getBobTail(i*levels + j))));
        popMatrix();
       }
       popMatrix();
