@@ -9,6 +9,10 @@ NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
   size(1280,720, P3D);
+  init();
+  }
+  
+void init() {
   frameInc = 1000*1*60/BPM;
   frameBump = frameInc;
   
@@ -26,8 +30,7 @@ void setup() {
   mask = new MaskCirclesAlt();
   colorMode(HSB,1.);
   
-
-  }
+}
 
 void draw() {
   
@@ -36,30 +39,26 @@ void draw() {
    frameBump = frameCount+frameInc;
   }
   background(0.);
+  directionalLight(1., 0., 1., 0.1*sin(xbob.getBob()), 0.1*cos(ybob.getBob()), -1.);
+
   float a = 0.1 * width;
   float b = 0.1 * height;
   float c = 0.8 * width;
   float d = 0.8 * height;
   
   fill(0.9);
-  //rect(a, b, c ,d);
+  rect(a, b, c ,d);
   
   GPoint gp1 = new GPoint(a,b);
   GPoint gp2 = new GPoint(a+c, b+d);
   float dd = gf.getLen(gp1, gp2);
   
   fill(0.7);
-  //rect(a,b, dd - c, d);
+  rect(a,b, dd - c, d);
   box(200, 100, 10);
   
-  noFill();
-  //rect(a,b, d, d);
-  //rect(c+a-d,b, d, d);
-  
   //saveFrame();
-  int bpm = 70;
-  int bpmms = 1000*1*60/bpm;
-  println(bpmms + " "+ millis() + " " + floor(millis()/bpmms));
+
 } 
 
 
