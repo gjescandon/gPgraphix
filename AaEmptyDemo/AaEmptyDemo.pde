@@ -4,7 +4,7 @@ GeoFunctions gf;
 MaskCirclesAlt mask;
 int frameBump, frameInc;
 int BPM = 96;
-
+color CHROMAGRN;
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 void setup() {
@@ -29,6 +29,7 @@ void init() {
   ybob = new NoizeBob(1., 0.001, 0.3);
   mask = new MaskCirclesAlt();
   colorMode(HSB,1.);
+  CHROMAGRN = color(0.3, 0.98, 0.96);
   
 }
 
@@ -39,6 +40,7 @@ void draw() {
    frameBump = frameCount+frameInc;
   }
   background(0.);
+  background(CHROMAGRN);
   directionalLight(1., 0., 1., 0.1*sin(xbob.getBob()), 0.1*cos(ybob.getBob()), -1.);
 
   float a = 0.1 * width;

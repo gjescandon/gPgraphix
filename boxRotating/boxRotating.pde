@@ -6,7 +6,7 @@ void setup() {
   size(720, 720, P3D);
   noStroke();
   fill(204);
-  img = loadImage("seaShellFoam_mirror720.jpg");
+  img = loadImage("jmor01/seaShellFoam_mirror720.jpg");
   toon = loadShader("texture_frag.glsl");
 }
 

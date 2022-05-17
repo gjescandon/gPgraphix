@@ -10,14 +10,14 @@ class LineBuilder {
   }
   
   void setup() {
-    levels = 2 + floor(random(4));
+    levels = 2 + floor(random(3));
     
     x0 = floor(random(width));
     y0 = floor(random(height));
     x0 = 100;
     y0 = 100;
     len0 = 100 + floor(random(0.6*height));
-    sep0 = 21 + floor(random(34.));
+    sep0 = 34 + floor(random(34.));
     dep0 = 48;
     orient = floor(random(2)); // 0 = vertical ; 1 = horizontal
     

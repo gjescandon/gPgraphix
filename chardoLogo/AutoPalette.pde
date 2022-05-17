@@ -15,7 +15,7 @@ class AutoPalette{
   float factor = 1.0;
   
  AutoPalette(){
-   c1 = 1 + random(2);
+   c1 = random(2);
      c2 = random(2);
      c3 = random(2);
    d1 = random(1);

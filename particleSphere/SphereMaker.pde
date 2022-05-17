@@ -14,9 +14,12 @@ float radMin;
     
     cb = new NoizeBob(1.0, 0.002, 0.5);
     swb = new NoizeBob(1.0, 0.0001, 0.9);
-    zbob = new NoizeBob(1.0, 0.01, 0.5); 
+    zbob = new NoizeBob(1.0, 0.001, 0.5); 
     r2dbob = new NoizeBob_2D(1., 0.01, 0.01, 0.5);
     
+  xbob = new NoizeBob(1., 0.001, 0.5);
+  ybob = new NoizeBob(1., 0.001, 0.5);
+  
     rotoffx = random(1);
     rotoffy = random(1);
     rotoffz = random(1);
@@ -39,9 +42,9 @@ float radMin;
     translate(xtoff, ytoff, ztoff);
     
       pushMatrix();
-      rotateY(sin(0.001*frameCount + rotoffy));
-      rotateX(sin(0.001*frameCount + rotoffx));
-      rotateZ(sin(0.001*frameCount + rotoffz));
+      rotateY(sin(ybob.getBob() + rotoffy));
+      rotateX(sin(xbob.getBob() + rotoffx));
+      rotateZ(sin(zbob.getBob() + rotoffz));
       float roff = swb.getBob();
       
     for (float j = 0.; j < phiMax; j+= pInc) {

@@ -5,6 +5,7 @@ class FaceMaker {
   NoizeBob xbob, ybob;
   NoizeBob_2D zbob;
   AutoPalette apal;
+  float rfact;
   
  FaceMaker() {
    setup();
@@ -44,15 +45,15 @@ class FaceMaker {
     for (int x = 0; x < (width - 1); x+=10) {
       for (int y = 0; y < (height -1); y += 10) {
           //fill(simg.pixels[floor(y * width + x)]);
-          float r = zbob.getBobTail(x,y);
-          float roff = 0.8;
+          float r = zbob.getBobTail(2*x,2*y);
+          float roff = rfact;
           if (r > roff) {
-            r = map(r, roff, 1.0, 0., 1.0);
-            fill(apal.getColorDark(r));
-            r *= 56;
+            r = map(r, roff, 1.0, 1., 3.0);
+            fill(apal.getColor(r));
+            r *= 10.;
             pushMatrix();
-            translate(0,0, 0-50-r);
-            ellipse(x, y, r, r);
+            translate(x,y, 0-50-8*rfact*r);
+            sphere(r);
             popMatrix();
           }      
     }
@@ -93,10 +94,11 @@ void drawSliced(PImage simg) {
 
    xdiv = 5;
    ydiv = 23;
+   rfact = 0.8 + 0.2 * random(1);
    
    xbob = new NoizeBob(1.0, 0.0001, 0.5);
    ybob = new NoizeBob(1.0, 0.1, 0.7);
-   zbob = new NoizeBob_2D(1.0, 0.1, 0.1, 0.7);
+   zbob = new NoizeBob_2D(1.0, 0.3, 0.3, 0.7);
    zbob.getBob();
    
    apal = new AutoPalette();

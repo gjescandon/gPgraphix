@@ -6,7 +6,7 @@ QuilezFunctions qf;
 NoizeBob cb,zbob, xbob, ybob, swb;
 int cnt;
 int frameInc, frameStep;
-int BPM = 90;
+int BPM = 184;
 
 void setup() {
   size(720,720, P3D);
@@ -50,37 +50,3 @@ void draw() {
   println(frameCount);
   //saveFrame();
 } 
-
-
-
-// circles - works good
-void drawCircles() {
-  
-  stroke(0.0);
-  float sw = 50;
-  strokeWeight(sw*swb.getBob());
-  fill(1.);
-  //pushMatrix();
-  //translate(0,0,zbob.getBob());
-  circle(0,0, 700 + 1000 * cb.getBobTail(1));
-  //popMatrix();
-  
-  strokeWeight(sw*cb.getBobTail(50));
-  //pushMatrix();
-  //translate(0,0,zbob.getBobTail(10));
-  circle(0,0, 400 + 1500 * cb.getBobTail(100));
-  //popMatrix();
-  
-  strokeWeight(sw*cb.getBobTail(50));
-  //pushMatrix();
-  //translate(0,0,zbob.getBobTail(50));
-  circle(0,0, 700 + 1000 * cb.getBobTail(200));
-  //popMatrix();
-  
-  strokeWeight(sw*cb.getBobTail(100));
-  //pushMatrix();
-  //translate(0,0,zbob.getBobTail(50));
-
-  circle(0,0, 400 + 1500 * cb.getBobTail(300));
-  //popMatrix();
-}

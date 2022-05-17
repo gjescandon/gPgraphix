@@ -4,9 +4,10 @@ GeoFunctions gf;
 SphereMaker sm;
 SphereMaker[] sarr;
 NoizeBob xbob, ybob, zbob;
+float ran01, ran02, ran03;
 
 int frameBump, frameInc;
-int BPM = 140;
+int BPM = 110;
 
 int cnt;
 void setup() {
@@ -23,10 +24,12 @@ void init() {
   qf = new QuilezFunctions();
   gf = new GeoFunctions();
 
-  xbob = new NoizeBob(1., 0.001, 0.3);
-  ybob = new NoizeBob(1., 0.001, 0.3);
-  zbob = new NoizeBob(1., 0.001, 0.3);
-
+  xbob = new NoizeBob(1., 0.01, 0.5);
+  ybob = new NoizeBob(1., 0.01, 0.5);
+  zbob = new NoizeBob(1., 0.01, 0.5);
+  ran01 = random(1);
+  ran02 = random(1);
+  ran03 = random(1);
   //sm = new SphereMaker();
   sarr = new SphereMaker[cnt];
   for (int i = 0; i < cnt; i++) {
@@ -47,9 +50,9 @@ void draw() {
 
   translate(0.5*width, 0.5*height);
   pushMatrix();
-  rotateX(sin(xbob.getBob()));
-  rotateY(0.01*frameCount);
-  rotateZ(sin(zbob.getBob()));
+  rotateX(sin(xbob.getBob() + ran01));
+  rotateY(ybob.getBob() + ran02);
+  rotateZ(sin(zbob.getBob() + ran03));
   
   for (int i = 0; i < cnt; i++) {
     sarr[i].draw();
