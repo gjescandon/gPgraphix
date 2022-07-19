@@ -1,7 +1,7 @@
 class AutoPalette{
 //https://www.iquilezles.org/www/articles/palettes/palettes.htm  
   float a1 = 0.6; // hue : center
-  float a2 = 0.5;  // sat : center
+  float a2 = 0.6;  // sat : center
   float a3 = 0.6;  // bright : center
   float b1 = 1.;
   float b2 = 0.2;
@@ -23,6 +23,9 @@ class AutoPalette{
      d3 = random(1); 
      
    if (c1 == d2) c1++;
+   
+   a1 = 0.1*floor(random(10));
+   println("a1 " + a1);
  }
  
  AutoPalette(float r){
@@ -42,6 +45,7 @@ class AutoPalette{
  }
  
  AutoPalette(float hue, float sat, float brit){
+   
    c1 = 1+floor(random(10));
      c2 = random(2);
      c3 = random(2);
@@ -53,6 +57,7 @@ class AutoPalette{
    println(c1);
    println(d1);
    
+   println("a1 " + hue);
    a1 = hue;
    a2 = sat;
    a3 = brit;
